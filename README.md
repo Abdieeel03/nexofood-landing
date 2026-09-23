@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🍽️ NexoFood — Landing Page
 
 > **Plataforma integral para negocios gastronómicos: Vende más, en más lugares y sin comisiones abusivas.**
@@ -129,3 +130,6 @@ La landing page implementa una paleta de colores y tokens de diseño configurado
 ## 📄 Licencia
 
 Este proyecto es de uso privado / comercial para el equipo de **NexoFood**. Todos los derechos reservados.
+=======
+# nexofood-landing
+>>>>>>> origin/dev
