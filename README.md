@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # 🍽️ NexoFood — Landing Page
 
 > **Plataforma integral para negocios gastronómicos: Vende más, en más lugares y sin comisiones abusivas.**
