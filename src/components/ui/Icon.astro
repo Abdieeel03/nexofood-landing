@@ -1,0 +1,45 @@
+---
+interface Props {
+  name: string;
+  size?: number | string;
+  color?: string;
+  fill?: boolean;
+  weight?: number;
+  class?: string;
+  style?: Record<string, string | number>;
+}
+
+const {
+  name,
+  size = 24,
+  color,
+  fill = false,
+  weight = 400,
+  class: className = '',
+  style = {},
+} = Astro.props;
+
+const fontSize = typeof size === 'number' ? `${size}px` : size;
+const fontVariationSettings = `'FILL' ${fill ? 1 : 0}, 'wght' ${weight}`;
+
+const styleString = Object.entries({
+  'font-size': fontSize,
+  'font-variation-settings': fontVariationSettings,
+  color: color || 'currentColor',
+  'line-height': 1,
+  'user-select': 'none',
+  'vertical-align': 'middle',
+  display: 'inline-flex',
+  'align-items': 'center',
+  'justify-content': 'center',
+  ...style,
+})
+  .map(([k, v]) => `${k}: ${v};`)
+  .join(' ');
+---
+
+<span
+  class={`material-symbols-outlined ${className}`}
+  style={styleString}
+  aria-hidden="true"
+>{name}</span>
