@@ -10,6 +10,7 @@ interface Props {
   fullWidth?: boolean;
   icon?: string;
   iconPosition?: 'left' | 'right';
+  static?: boolean;
   href?: string;
   target?: string;
   rel?: string;
@@ -25,6 +26,7 @@ const {
   fullWidth = false,
   icon,
   iconPosition = 'right',
+  static: isStatic = false,
   href,
   target,
   rel,
@@ -36,29 +38,45 @@ const {
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    'bg-secondary-container text-on-secondary shadow-[0_2px_4px_rgba(254,106,52,0.2)] hover:bg-secondary-accent hover:shadow-cta hover:-translate-y-0.5 active:translate-y-0',
+    'bg-secondary-container text-on-secondary shadow-[0_1px_2px_rgba(171,53,0,0.2),0_4px_12px_rgba(254,106,52,0.22)] hover:bg-secondary-accent hover:shadow-cta',
   secondary:
-    'bg-primary-container text-on-secondary shadow-[0_2px_4px_rgba(16,185,129,0.2)] hover:bg-[#059669] hover:shadow-[0_4px_12px_rgba(16,185,129,0.3)] hover:-translate-y-0.5 active:translate-y-0',
+    'bg-primary text-on-primary shadow-[0_1px_2px_rgba(0,66,43,0.2),0_4px_12px_rgba(0,108,73,0.22)] hover:bg-[#00583b] hover:shadow-[0_6px_18px_rgba(0,108,73,0.3)]',
   outline:
-    'bg-transparent text-on-surface border border-outline-variant hover:bg-surface-container-low hover:border-outline hover:text-primary',
+    'bg-surface-container-lowest text-on-surface shadow-[0_0_0_1px_oklch(0_0_0/0.1),0_1px_2px_oklch(0_0_0/0.05)] hover:bg-surface-container-low hover:shadow-[0_0_0_1px_oklch(0_0_0/0.16),0_2px_6px_oklch(0_0_0/0.07)] hover:text-primary',
   ghost:
     'bg-transparent text-on-surface-variant hover:bg-surface-container hover:text-primary',
   dark:
-    'bg-white/12 text-inverse-on-surface border border-white/20 backdrop-blur-md hover:bg-white/20 hover:border-white/40',
+    'bg-white/10 text-inverse-on-surface shadow-[0_0_0_1px_oklch(1_0_0/0.16)] backdrop-blur-md hover:bg-white/16 hover:shadow-[0_0_0_1px_oklch(1_0_0/0.28)]',
 };
 
-const sizeClasses: Record<ButtonSize, string> = {
-  sm: 'py-2 px-3.5 text-xs rounded-lg',
-  md: 'py-3 px-5 text-sm rounded-xl',
-  lg: 'py-4 px-7 text-base font-bold rounded-2xl',
+// Optical alignment: slightly less padding on the icon side (make-interfaces-feel-better)
+const getSizeClasses = (s: ButtonSize, hasIcon: boolean, pos: 'left' | 'right'): string => {
+  if (s === 'sm') {
+    if (!hasIcon) return 'min-h-[38px] py-2 px-3.5 text-xs rounded-lg';
+    return pos === 'right'
+      ? 'min-h-[38px] py-2 pl-3.5 pr-3 text-xs rounded-lg'
+      : 'min-h-[38px] py-2 pl-3 pr-3.5 text-xs rounded-lg';
+  }
+  if (s === 'lg') {
+    if (!hasIcon) return 'min-h-[48px] py-3.5 px-7 text-base font-bold rounded-2xl';
+    return pos === 'right'
+      ? 'min-h-[48px] py-3.5 pl-7 pr-6 text-base font-bold rounded-2xl'
+      : 'min-h-[48px] py-3.5 pl-6 pr-7 text-base font-bold rounded-2xl';
+  }
+  if (!hasIcon) return 'min-h-[44px] py-2.5 px-5 text-sm rounded-xl';
+  return pos === 'right'
+    ? 'min-h-[44px] py-2.5 pl-5 pr-4 text-sm rounded-xl'
+    : 'min-h-[44px] py-2.5 pl-4 pr-5 text-sm rounded-xl';
 };
 
-const iconSize = size === 'sm' ? 16 : size === 'lg' ? 22 : 18;
+const iconSize = size === 'sm' ? 16 : size === 'lg' ? 20 : 18;
+const tapScale = !isStatic ? 'active:not-disabled:scale-[0.96]' : '';
 
 const combinedClasses = [
-  'inline-flex items-center justify-center gap-2 font-semibold border border-transparent no-underline cursor-pointer whitespace-nowrap transition-all duration-200 leading-none relative overflow-hidden disabled:opacity-60 disabled:cursor-not-allowed disabled:pointer-events-none',
+  'inline-flex items-center justify-center gap-2 font-semibold no-underline cursor-pointer whitespace-nowrap leading-none relative overflow-hidden transition-[transform,background-color,color,box-shadow,opacity] duration-150 ease-out disabled:opacity-60 disabled:cursor-not-allowed disabled:pointer-events-none',
+  tapScale,
   variantClasses[variant],
-  sizeClasses[size],
+  getSizeClasses(size, Boolean(icon), iconPosition),
   fullWidth ? 'w-full' : '',
   className,
 ]
@@ -76,15 +94,15 @@ const combinedClasses = [
       class={combinedClasses}
       {...rest}
     >
-      {icon && iconPosition === 'left' && <Icon name={icon} size={iconSize} />}
+      {icon && iconPosition === 'left' && <Icon name={icon} size={iconSize} weight={600} />}
       <span><slot /></span>
-      {icon && iconPosition === 'right' && <Icon name={icon} size={iconSize} />}
+      {icon && iconPosition === 'right' && <Icon name={icon} size={iconSize} weight={600} />}
     </a>
   ) : (
     <button id={id} type={type} class={combinedClasses} {...rest}>
-      {icon && iconPosition === 'left' && <Icon name={icon} size={iconSize} />}
+      {icon && iconPosition === 'left' && <Icon name={icon} size={iconSize} weight={600} />}
       <span><slot /></span>
-      {icon && iconPosition === 'right' && <Icon name={icon} size={iconSize} />}
+      {icon && iconPosition === 'right' && <Icon name={icon} size={iconSize} weight={600} />}
     </button>
   )
 }
