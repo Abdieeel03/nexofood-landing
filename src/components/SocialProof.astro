@@ -3,26 +3,29 @@ import Container from './ui/Container.astro';
 import SectionWrapper from './ui/SectionWrapper.astro';
 
 const BRANDS = [
-  'BurgerKing',
-  'SushiClub',
-  'ElClubDeLaMilanesa',
-  'KFC',
-  'Luccianos',
+  { name: 'BurgerKing', category: 'QSR & Drive-Thru' },
+  { name: 'SushiClub', category: 'Dark Kitchens & Salón' },
+  { name: 'ElClubDeLaMilanesa', category: 'Franquicias Multi-local' },
+  { name: 'KFC', category: 'Alto Volumen' },
+  { name: 'Luccianos', category: 'Heladería Artesanal' },
 ];
 ---
 
 <SectionWrapper background="lowest" padding="sm" borderBottom={true}>
   <Container>
-    <div class="text-center flex flex-col items-center gap-6">
-      <p class="text-xs font-bold text-outline uppercase tracking-[0.12em]">
-        Marcas gastronómicas líderes que confían en Nexofood
+    <div class="flex flex-col lg:flex-row items-center justify-between gap-5 lg:gap-8">
+      <p class="text-xs font-bold text-on-surface-variant uppercase tracking-[0.08em] text-center lg:text-left shrink-0">
+        Operando en cocinas líderes de Latinoamérica
       </p>
-      <div class="flex flex-wrap justify-center items-center gap-5 md:gap-12 opacity-65 hover:opacity-95 transition-opacity">
+      <div class="flex flex-wrap justify-center lg:justify-end items-center gap-x-7 gap-y-3 sm:gap-x-10">
         {BRANDS.map((brand) => (
-          <div
-            class="text-xl md:text-2xl font-extrabold text-on-surface-variant tracking-tight py-1.5 px-2.5 md:py-2 md:px-4 rounded-lg transition-all duration-200 grayscale hover:grayscale-0 hover:text-primary hover:-translate-y-0.5 hover:bg-surface-container-low select-none"
-          >
-            {brand}
+          <div class="group inline-flex items-baseline gap-2 py-1 px-2 rounded-lg transition-[color,background-color] duration-150 hover:bg-surface-container-low select-none">
+            <span class="text-lg sm:text-xl font-extrabold text-on-surface/75 group-hover:text-primary tracking-tight transition-colors duration-150">
+              {brand.name}
+            </span>
+            <span class="hidden sm:inline-block text-[11px] font-medium text-on-surface-variant/75">
+              · {brand.category}
+            </span>
           </div>
         ))}
       </div>

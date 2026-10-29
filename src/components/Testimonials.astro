@@ -9,6 +9,8 @@ interface Testimonial {
   role: string;
   location: string;
   initials: string;
+  impactBadge: string;
+  featured?: boolean;
 }
 
 const TESTIMONIALS: Testimonial[] = [
@@ -19,6 +21,8 @@ const TESTIMONIALS: Testimonial[] = [
     role: 'Fundador en Burger Republic',
     location: 'Lima, Perú',
     initials: 'MB',
+    impactBadge: '+$2,400 USD/mes ahorrados',
+    featured: true,
   },
   {
     quote:
@@ -27,6 +31,7 @@ const TESTIMONIALS: Testimonial[] = [
     role: 'Chef Ejecutiva en Takumi Nikkei',
     location: 'Bogotá, Colombia',
     initials: 'CR',
+    impactBadge: '26 min → 17 min en cocina',
   },
   {
     quote:
@@ -35,6 +40,7 @@ const TESTIMONIALS: Testimonial[] = [
     role: 'Director de Operaciones en Donatello Pizza',
     location: 'Buenos Aires, Argentina',
     initials: 'EM',
+    impactBadge: '+35% recompra directa',
   },
 ];
 ---
@@ -42,50 +48,91 @@ const TESTIMONIALS: Testimonial[] = [
 <SectionWrapper background="default" padding="lg" id="casos-de-exito">
   <Container>
     {/* Header */}
-    <div class="text-center max-w-[47.5rem] mx-auto mb-10 md:mb-14 flex flex-col items-center gap-2.5">
-      <div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-low border border-outline-variant text-primary text-xs font-bold uppercase tracking-wider">
-        <Icon name="star" size={16} fill={true} />
-        <span>Casos de Éxito</span>
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 sm:mb-10 md:mb-14">
+      <div class="max-w-[36rem]">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-on-surface tracking-tight leading-tight">
+          Probado y aprobado en cocinas de alto ritmo
+        </h2>
+        <p class="mt-2.5 sm:mt-3 text-sm sm:text-base md:text-lg text-on-surface-variant leading-relaxed">
+          Descubre cómo dueños de restaurantes y franquicias transformaron sus
+          operaciones diarias y dispararon su rentabilidad neta.
+        </p>
       </div>
-      <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-on-surface tracking-tight leading-tight sm:leading-snug">
-        Probado y aprobado en cocinas de alto ritmo
-      </h2>
-      <p class="text-sm sm:text-base md:text-lg text-on-surface-variant leading-relaxed">
-        Descubre cómo dueños de restaurantes y franquicias transformaron sus
-        operaciones diarias y dispararon su rentabilidad neta.
-      </p>
+      <div class="flex items-center gap-2 text-xs sm:text-sm font-bold text-on-surface bg-surface-container-lowest px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl shadow-[var(--shadow-border)] w-full sm:w-auto md:self-end tabular-nums">
+        <span class="text-amber-500 flex shrink-0">
+          <Icon name="star" size={18} fill={true} />
+        </span>
+        <span>4.9/5 calificación promedio en +1,200 locales</span>
+      </div>
     </div>
 
-    {/* Testimonials Grid */}
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 max-w-[32.5rem] lg:max-w-none mx-auto">
+    {/* Testimonials Grid: Mobile-first */}
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-8 items-stretch">
       {TESTIMONIALS.map((t) => (
-        <div
-          class="bg-surface-container-lowest border border-border-subtle rounded-3xl p-6 sm:p-8 shadow-level-1 flex flex-col justify-between gap-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-level-2 hover:border-primary-container"
+        <figure
+          class={`rounded-2xl sm:rounded-3xl p-5 sm:p-8 flex flex-col justify-between gap-5 sm:gap-6 transition-[transform,box-shadow] duration-200 ease-out hover:-translate-y-0.5 ${
+            t.featured
+              ? 'bg-[#131e18] text-inverse-on-surface shadow-[0_18px_38px_-10px_rgba(0,0,0,0.35)]'
+              : 'bg-surface-container-lowest text-on-surface shadow-[var(--shadow-border)] hover:shadow-[var(--shadow-border-hover)]'
+          }`}
         >
-          <div class="flex gap-0.5 text-amber-500" aria-label="Calificación 5 estrellas">
-            {[1, 2, 3, 4, 5].map(() => (
-              <Icon name="star" size={18} fill={true} />
-            ))}
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="flex gap-0.5 text-amber-500" aria-label="Calificación 5 estrellas">
+              {[1, 2, 3, 4, 5].map(() => (
+                <Icon name="star" size={17} fill={true} />
+              ))}
+            </div>
+            <span
+              class={`text-[11px] font-extrabold px-2.5 py-1 rounded-full tabular-nums ${
+                t.featured
+                  ? 'bg-primary/40 text-primary-fixed'
+                  : 'bg-mint-subtle text-primary'
+              }`}
+            >
+              {t.impactBadge}
+            </span>
           </div>
 
-          <p class="text-sm sm:text-base leading-relaxed text-on-surface italic grow">
-            "{t.quote}"
-          </p>
+          <blockquote
+            class={`font-editorial text-lg sm:text-xl leading-relaxed italic grow ${
+              t.featured ? 'text-white' : 'text-on-surface'
+            }`}
+          >
+            “{t.quote}”
+          </blockquote>
 
-          <div class="flex items-center gap-3.5 border-t border-surface-container pt-4">
-            <div class="w-11 h-11 rounded-full bg-gradient-to-br from-primary-container to-primary text-white flex items-center justify-center font-bold text-sm shrink-0">
+          <figcaption
+            class={`flex items-center gap-3.5 border-t pt-4 ${
+              t.featured ? 'border-white/12' : 'border-surface-container'
+            }`}
+          >
+            <div
+              class={`w-11 h-11 rounded-full flex items-center justify-center font-extrabold text-sm shrink-0 ${
+                t.featured
+                  ? 'bg-primary-fixed text-on-primary-fixed'
+                  : 'bg-primary text-on-primary'
+              }`}
+            >
               {t.initials}
             </div>
             <div class="flex flex-col">
-              <span class="text-sm font-bold text-on-surface">
+              <span
+                class={`text-sm font-bold ${
+                  t.featured ? 'text-white' : 'text-on-surface'
+                }`}
+              >
                 {t.author}
               </span>
-              <span class="text-xs text-on-surface-variant">
+              <span
+                class={`text-xs ${
+                  t.featured ? 'text-[#b4c8bc]' : 'text-on-surface-variant'
+                }`}
+              >
                 {t.role} · {t.location}
               </span>
             </div>
-          </div>
-        </div>
+          </figcaption>
+        </figure>
       ))}
     </div>
   </Container>
