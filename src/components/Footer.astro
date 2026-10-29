@@ -8,57 +8,61 @@ import Icon from './ui/Icon.astro';
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-8 lg:gap-12 pb-12 md:pb-16">
       {/* Brand Bio */}
       <div class="flex flex-col gap-4 sm:col-span-2 lg:col-span-1 max-w-full lg:max-w-[22.5rem]">
-        <a href="#" class="flex items-center gap-1.5 text-xl sm:text-2xl font-extrabold text-primary tracking-tight">
-          <span>Nexofood</span>
-          <span class="text-secondary-container flex items-center">
-            <Icon name="restaurant" size={24} fill={true} />
+        <a
+          href="/#inicio"
+          class="inline-flex items-center gap-2 text-xl sm:text-2xl font-extrabold text-primary tracking-tight w-fit"
+        >
+          <span class="w-8 h-8 rounded-lg bg-primary text-on-primary inline-flex items-center justify-center">
+            <Icon name="restaurant" size={18} fill={true} />
           </span>
+          <span>Nexofood</span>
         </a>
         <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
           La plataforma operativa integral para restaurantes modernos.
           Gestiona pedidos, menú y logística desde un solo lugar sin
           comisiones abusivas.
         </p>
-        <div class="flex items-center gap-2 text-on-surface-variant mt-1">
+        {/* 44x44px minimum hit areas per make-interfaces-feel-better */}
+        <div class="flex items-center gap-2.5 text-on-surface-variant mt-1">
           <a
-            href="#"
-            class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant transition-colors hover:bg-primary-container hover:text-white cursor-pointer"
+            href="/#inicio"
+            class="w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center text-on-surface-variant transition-[background-color,color,transform] duration-150 ease-out hover:bg-primary hover:text-on-primary active:scale-[0.96] cursor-pointer"
             aria-label="Sitio web global"
           >
-            <Icon name="language" size={18} />
+            <Icon name="language" size={20} />
           </a>
           <a
             href="mailto:contacto@nexofood.io"
-            class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant transition-colors hover:bg-primary-container hover:text-white cursor-pointer"
+            class="w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center text-on-surface-variant transition-[background-color,color,transform] duration-150 ease-out hover:bg-primary hover:text-on-primary active:scale-[0.96] cursor-pointer"
             aria-label="Contacto por correo"
           >
-            <Icon name="mail" size={18} />
+            <Icon name="mail" size={20} />
           </a>
         </div>
       </div>
 
       {/* Col 1: Productos */}
       <div class="flex flex-col gap-3 sm:gap-4">
-        <h4 class="text-xs sm:text-sm font-bold text-on-surface">Productos</h4>
+        <h3 class="text-xs sm:text-sm font-bold text-on-surface">Productos</h3>
         <ul class="flex flex-col gap-2">
           <li>
-            <a href="#productos" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-all inline-block hover:translate-x-0.5">
+            <a href="/#productos" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
               Tienda Online
             </a>
           </li>
           <li>
-            <a href="#productos" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-all inline-block hover:translate-x-0.5">
-              Gestor de Pedidos
+            <a href="/#productos" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
+              Gestor de Pedidos (KDS)
             </a>
           </li>
           <li>
-            <a href="#productos" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-all inline-block hover:translate-x-0.5">
+            <a href="/#productos" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
               Logística y Delivery
             </a>
           </li>
           <li>
-            <a href="#productos" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-all inline-block hover:translate-x-0.5">
-              Integraciones POS
+            <a href="/#productos" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
+              Fidelización CRM
             </a>
           </li>
         </ul>
@@ -66,26 +70,26 @@ import Icon from './ui/Icon.astro';
 
       {/* Col 2: Recursos */}
       <div class="flex flex-col gap-3 sm:gap-4">
-        <h4 class="text-xs sm:text-sm font-bold text-on-surface">Recursos</h4>
+        <h3 class="text-xs sm:text-sm font-bold text-on-surface">Recursos</h3>
         <ul class="flex flex-col gap-2">
           <li>
-            <a href="#" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-all inline-block hover:translate-x-0.5">
-              Centro de Ayuda
+            <a href="/#precios" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
+              Preguntas Frecuentes
             </a>
           </li>
           <li>
-            <a href="#" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-all inline-block hover:translate-x-0.5">
-              Blog Gastronómico
+            <a href="/#por-que" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
+              Métricas de Impacto
             </a>
           </li>
           <li>
-            <a href="#casos-de-exito" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-all inline-block hover:translate-x-0.5">
+            <a href="/#casos-de-exito" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
               Casos de Éxito
             </a>
           </li>
           <li>
-            <a href="#" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-all inline-block hover:translate-x-0.5">
-              Webinars en Vivo
+            <a href="/terminos-y-condiciones" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
+              Términos y Condiciones
             </a>
           </li>
         </ul>
@@ -93,26 +97,26 @@ import Icon from './ui/Icon.astro';
 
       {/* Col 3: Compañía */}
       <div class="flex flex-col gap-3 sm:gap-4">
-        <h4 class="text-xs sm:text-sm font-bold text-on-surface">Compañía</h4>
+        <h3 class="text-xs sm:text-sm font-bold text-on-surface">Compañía</h3>
         <ul class="flex flex-col gap-2">
           <li>
-            <a href="#" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-all inline-block hover:translate-x-0.5">
+            <a href="/#por-que" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
               Sobre Nosotros
             </a>
           </li>
           <li>
-            <a href="#" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-all inline-block hover:translate-x-0.5">
-              Carreras & Empleos
-            </a>
-          </li>
-          <li>
-            <a href="#" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-all inline-block hover:translate-x-0.5">
+            <a href="mailto:contacto@nexofood.io" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
               Contacto Comercial
             </a>
           </li>
           <li>
-            <a href="#" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-all inline-block hover:translate-x-0.5">
-              Programa de Partners
+            <a href="/#precios" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
+              Planes Enterprise
+            </a>
+          </li>
+          <li>
+            <a href="mailto:legal@nexofood.io" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
+              Departamento Legal
             </a>
           </li>
         </ul>
@@ -123,11 +127,14 @@ import Icon from './ui/Icon.astro';
   {/* Bottom bar */}
   <div class="border-t border-border-subtle py-4">
     <Container>
-      <div class="flex flex-col sm:flex-row justify-between items-center gap-3 text-center sm:text-left">
-        <p class="text-xs text-on-surface-variant">
-          © 2026 Nexofood Technologies. Potenciando la industria gastronómica.
-        </p>
-        <div class="flex items-center gap-4 sm:gap-6 text-xs text-on-surface-variant">
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-3 text-center sm:text-left tabular-nums">
+        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-x-4 gap-y-1 text-xs text-on-surface-variant">
+          <span>© 2026 Nexofood Technologies.</span>
+          <a href="/terminos-y-condiciones" class="font-semibold text-primary hover:underline">
+            Términos y Condiciones
+          </a>
+        </div>
+        <div class="flex items-center gap-4 sm:gap-6 text-xs text-on-surface-variant font-medium">
           <div class="flex items-center gap-1.5">
             <span class="text-primary flex">
               <Icon name="lock" size={16} />

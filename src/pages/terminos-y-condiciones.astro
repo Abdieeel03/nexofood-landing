@@ -1,0 +1,506 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Container from '../components/ui/Container.astro';
+import Icon from '../components/ui/Icon.astro';
+import Button from '../components/ui/Button.astro';
+
+interface LegalSection {
+  id: string;
+  number: string;
+  title: string;
+  summary: string;
+  paragraphs: string[];
+  bullets?: string[];
+}
+
+const SECTIONS: LegalSection[] = [
+  {
+    id: 'objeto-y-alcance',
+    number: '1',
+    title: 'Objeto y Alcance del Servicio',
+    summary:
+      'Nexofood provee tecnología SaaS (Tienda Online, KDS, Logística y CRM) para que operes tu restaurante sin intermediarios. Tú mantienes el control total de tu operación gastronómica.',
+    paragraphs: [
+      'Los presentes Términos y Condiciones regulan el acceso y uso de la plataforma tecnológica Nexofood (en adelante, la "Plataforma"), titularidad de Nexofood Technologies, diseñada para la gestión integral de pedidos digitales, pantallas de comandas en cocina (KDS), coordinación logística de repartidores y herramientas de fidelización (CRM) para establecimientos gastronómicos, dark kitchens y franquicias (en adelante, el "Comercio").',
+      'Al registrar una cuenta, activar el periodo de prueba de 14 días o contratar cualquiera de los planes vigentes (Starter, Profesional o Enterprise), el Comercio acepta sujetarse a estas condiciones operativas y comerciales.',
+    ],
+  },
+  {
+    id: 'comisiones-y-pagos',
+    number: '2',
+    title: 'Política de 0% Comisiones y Liquidación Directa',
+    summary:
+      'No cobramos porcentaje sobre tus ventas en tu tienda online propia. Solo pagas la suscripción fija de tu plan y las pasarelas de pago liquidan directo a tu cuenta bancaria.',
+    paragraphs: [
+      'Nexofood garantiza un esquema de 0% (cero por ciento) de comisión por intermediación sobre las órdenes procesadas a través del módulo de Tienda Online Propia del Comercio. El 100% del valor de los productos y del costo de envío cobrado al comensal pertenece íntegramente al Comercio.',
+      'Cuando el Comercio conecte pasarelas de pago electrónicas, billeteras digitales o terminales bancarias, los fondos serán liquidados directamente por el procesador de pagos seleccionado a la cuenta bancaria del Comercio, descontando únicamente las tasas bancarias estándar pactadas entre el Comercio y dicho procesador.',
+    ],
+    bullets: [
+      'Plan Starter ($0/mes): sin costo fijo mensual ni comisiones por uso de la tienda web y recepción por WhatsApp.',
+      'Plan Profesional ($49 USD/mes o $39 USD/mes en modalidad anual): tarifa plana mensual sin recargos por volumen de órdenes.',
+      'Plan Enterprise: facturación personalizada según acuerdo de nivel de servicio (SLA) y número de sucursales.',
+    ],
+  },
+  {
+    id: 'propiedad-de-datos',
+    number: '3',
+    title: 'Propiedad Exclusiva de la Base de Clientes (CRM)',
+    summary:
+      'Los datos de tus comensales son 100% tuyos. Nexofood jamás usará tu base de clientes para promocionar otros restaurantes competidores.',
+    paragraphs: [
+      'A diferencia de los agregadores y marketplaces de terceros, toda la información recopilada a través de la Tienda Online Propia del Comercio —incluyendo nombres, teléfonos, direcciones de entrega, historial de pedidos y preferencias gastronómicas— es propiedad exclusiva del Comercio.',
+      'Nexofood actúa únicamente como encargado del tratamiento tecnológico de dichos datos para habilitar las funciones de despacho, analítica y campañas de retención autorizadas por el Comercio. Nexofood se compromete expresamente a no comercializar, ceder ni realizar campañas cruzadas hacia los comensales del Comercio en beneficio de otros restaurantes.',
+    ],
+    bullets: [
+      'Exportación libre en formato CSV/Excel de toda tu cartera de clientes en cualquier momento.',
+      'Cumplimiento estricto de normativas de protección de datos personales y cifrado SSL de 256 bits.',
+      'Eliminación definitiva o entrega de respaldos a solicitud del Comercio al finalizar su suscripción.',
+    ],
+  },
+  {
+    id: 'integraciones-y-kds',
+    number: '4',
+    title: 'Integraciones Multicanal, KDS y Logística',
+    summary:
+      'Sincronizamos tus pedidos de Rappi, PedidosYa, WhatsApp y tienda web en tiempo real. Puedes usar tus propios motorizados o couriers bajo demanda.',
+    paragraphs: [
+      'El módulo Gestor Multicanal (KDS) sincroniza mediante conexiones oficiales (API) las órdenes provenientes de plataformas externas (tales como Rappi, PedidosYa, Uber Eats) junto con los pedidos directos del Comercio. La disponibilidad de dichas plataformas externas depende de las credenciales activas del Comercio en cada aplicación.',
+      'En el módulo de Logística y Delivery, el Comercio puede asignar pedidos a su flota interna de repartidores con seguimiento GPS vía WhatsApp o solicitar couriers aliados bajo demanda. La preparación culinaria, inocuidad alimentaria, empaque y emisión de comprobantes fiscales al comensal final son responsabilidad exclusiva del Comercio.',
+    ],
+  },
+  {
+    id: 'disponibilidad-y-sla',
+    number: '5',
+    title: 'Disponibilidad Operativa (SLA) y Soporte Técnico',
+    summary:
+      'Garantizamos 99.9% de disponibilidad en planes estándar y 99.99% en Enterprise, con soporte especializado para horarios gastronómicos de alta demanda.',
+    paragraphs: [
+      'Nexofood opera sobre infraestructura en la nube de alta disponibilidad con balanceo de carga automático diseñado para soportar picos gastronómicos de viernes, sábados, domingos y días festivos, garantizando un tiempo de actividad (Uptime) mínimo del 99.9% mensual (y 99.99% bajo contrato Enterprise).',
+      'Las actualizaciones de la Plataforma se despliegan sin interrupción del servicio (Zero-Downtime Deployment) fuera de las franjas horarias de almuerzo y cena.',
+    ],
+  },
+  {
+    id: 'cancelacion-y-prueba',
+    number: '6',
+    title: 'Periodo de Prueba, Facturación y Cancelación Sin Ataduras',
+    summary:
+      'Puedes probar el Plan Profesional gratis por 14 días y cancelar o cambiar de plan en cualquier momento desde tu panel, sin penalidades ni contratos forzosos.',
+    paragraphs: [
+      'Todo Comercio nuevo dispone de 14 días calendario de prueba gratuita en el Plan Profesional sin obligación de permanencia. Al concluir el periodo de prueba, el Comercio podrá optar por mantener el Plan Profesional, pasar automáticamente al Plan Starter ($0/mes) conservando su menú digital, o dar de baja su cuenta.',
+      'No existen cláusulas de permanencia forzosa ni multas por cancelación anticipada en los planes mensuales. El Comercio puede cancelar su renovación en cualquier instante desde la sección de Facturación de su panel administrativo.',
+    ],
+  },
+];
+---
+
+<Layout
+  title="Términos y Condiciones — Nexofood"
+  description="Condiciones transparentes de servicio, política de 0% comisiones, propiedad de datos de comensales y acuerdos de nivel de servicio (SLA) de Nexofood."
+>
+  <Header />
+
+  <main class="grow pt-22 sm:pt-26 pb-16 sm:pb-24 bg-background">
+    {/* Document Header Surface */}
+    <section class="border-b border-border-subtle bg-surface-container-lowest py-8 sm:py-12">
+      <Container>
+        <div class="flex flex-col gap-4 max-w-[52rem]">
+          {/* Breadcrumb / Back Navigation (44px touch target) */}
+          <nav aria-label="Ruta de navegación" class="flex items-center gap-2 text-xs sm:text-sm font-semibold text-on-surface-variant">
+            <a
+              href="/"
+              class="min-h-[40px] inline-flex items-center gap-1.5 text-primary hover:underline py-1 pr-2 rounded-lg active:scale-[0.96] transition-transform duration-150"
+            >
+              <Icon name="arrow_back" size={17} weight={600} />
+              <span>Volver al inicio</span>
+            </a>
+            <span aria-hidden="true" class="text-outline-variant">/</span>
+            <span class="text-on-surface">Marco Legal y Operativo</span>
+          </nav>
+
+          <h1 class="text-2xl sm:text-4xl lg:text-[2.75rem] font-extrabold text-on-surface tracking-tight leading-[1.12]">
+            Términos y Condiciones de Servicio
+          </h1>
+
+          <p class="text-sm sm:text-base md:text-lg text-on-surface-variant leading-relaxed max-w-[65ch]">
+            Redactados con la misma transparencia con la que operamos: sin letra chica, sin comisiones ocultas sobre tus ventas y garantizando que la base de datos de tu restaurante sea siempre tuya.
+          </p>
+
+          {/* Metadata & Reading Mode Switcher (transitions/tabs-sliding.md) */}
+          <div class="pt-3 mt-1 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-surface-container">
+            <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs sm:text-sm text-on-surface-variant font-medium tabular-nums">
+              <span class="inline-flex items-center gap-1.5">
+                <Icon name="verified" size={17} class="text-primary" fill={true} />
+                <span>Vigencia: Octubre 2026 (v2.4)</span>
+              </span>
+              <span class="inline-flex items-center gap-1.5">
+                <Icon name="schedule" size={17} class="text-primary" />
+                <span>Lectura: ~4 min</span>
+              </span>
+            </div>
+
+            {/* Segmented Mode Control: Texto Completo vs. Solo Resumen */}
+            <div class="w-full sm:w-auto">
+              <div
+                id="legal-mode-tabs"
+                class="t-tabs"
+                role="tablist"
+                aria-label="Modo de lectura"
+              >
+                <span class="t-tabs-pill" aria-hidden="true"></span>
+                <button
+                  type="button"
+                  class="t-tab"
+                  role="tab"
+                  aria-selected="true"
+                  data-read-mode="full"
+                >
+                  Documento Completo
+                </button>
+                <button
+                  type="button"
+                  class="t-tab"
+                  role="tab"
+                  aria-selected="false"
+                  data-read-mode="summary"
+                >
+                  Resumen Ejecutivo
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    {/* Main Reading Layout: Mobile-first TOC Accordion + Desktop Sticky Sidebar */}
+    <section class="pt-6 sm:pt-10">
+      <Container>
+        {/* Mobile Collapsible Table of Contents (lg:hidden, uses transitions/accordion.md) */}
+        <div
+          id="mobile-toc"
+          class="t-acc t-resize lg:hidden mb-6 rounded-2xl bg-surface-container-lowest shadow-[var(--shadow-border)] overflow-hidden"
+          data-open="false"
+        >
+          <button
+            type="button"
+            id="mobile-toc-btn"
+            aria-expanded="false"
+            class="t-acc-head w-full min-h-[48px] px-4 py-3 flex items-center justify-between gap-3 text-left text-sm font-bold text-on-surface cursor-pointer"
+          >
+            <span class="inline-flex items-center gap-2">
+              <Icon name="toc" size={20} class="text-primary" />
+              <span>Ir a una cláusula específica (6 secciones)</span>
+            </span>
+            <span class="t-acc-chevron w-5 h-5 text-primary shrink-0">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                <path d="M4 6.5L8 10.5L12 6.5"></path>
+              </svg>
+            </span>
+          </button>
+          <div class="t-acc-panel">
+            <div class="t-acc-panel-inner">
+              <ol class="px-4 pb-3.5 pt-2 border-t border-surface-container flex flex-col gap-1 tabular-nums">
+                {SECTIONS.map((sec) => (
+                  <li>
+                    <a
+                      href={`#${sec.id}`}
+                      data-mobile-toc-link
+                      class="min-h-[42px] px-3 py-2 rounded-xl flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors"
+                    >
+                      <span class="w-5 h-5 rounded-md bg-surface-container text-primary text-xs font-extrabold inline-flex items-center justify-center shrink-0">
+                        {sec.number}
+                      </span>
+                      <span>{sec.title}</span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-[17.5rem_1fr] gap-8 lg:gap-12 items-start">
+          {/* Desktop Sticky Sidebar TOC */}
+          <aside
+            aria-label="Índice de cláusulas"
+            class="hidden lg:flex flex-col gap-4 sticky top-24 p-5 rounded-2xl bg-surface-container-lowest shadow-[var(--shadow-border)]"
+          >
+            <div class="text-xs font-extrabold text-on-surface uppercase tracking-wider px-2">
+              Contenido del Acuerdo
+            </div>
+            <ol class="flex flex-col gap-1 tabular-nums">
+              {SECTIONS.map((sec, idx) => (
+                <li>
+                  <a
+                    href={`#${sec.id}`}
+                    data-toc-link={sec.id}
+                    class={`px-3 py-2 rounded-xl flex items-center gap-2.5 text-xs font-semibold transition-[background-color,color] duration-150 ${
+                      idx === 0
+                        ? 'bg-mint-subtle text-primary font-bold'
+                        : 'text-on-surface-variant hover:text-primary hover:bg-surface-container-low'
+                    }`}
+                  >
+                    <span class="w-5 h-5 rounded-md bg-surface-container text-primary text-[11px] font-extrabold inline-flex items-center justify-center shrink-0">
+                      {sec.number}
+                    </span>
+                    <span class="leading-snug">{sec.title}</span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+
+            <div class="pt-3 border-t border-surface-container flex flex-col gap-2 px-2">
+              <span class="text-xs text-on-surface-variant leading-relaxed">
+                ¿Dudas legales o contratos corporativos para franquicias?
+              </span>
+              <a
+                href="mailto:legal@nexofood.io"
+                class="text-xs font-bold text-primary hover:underline inline-flex items-center gap-1"
+              >
+                <span>legal@nexofood.io</span>
+                <Icon name="arrow_outward" size={14} />
+              </a>
+            </div>
+          </aside>
+
+          {/* Prose Content Column (65–75ch optimal measure per Impeccable Read mode) */}
+          <div class="flex flex-col gap-6 sm:gap-8 max-w-[68ch]">
+            {/* Key Commitments Banner */}
+            <div class="rounded-2xl sm:rounded-3xl p-5 sm:p-6 bg-[#131e18] text-inverse-on-surface shadow-level-2 flex flex-col gap-3">
+              <div class="flex items-center gap-2 text-primary-fixed text-xs sm:text-sm font-bold">
+                <Icon name="gavel" size={18} />
+                <span>Tres garantías contractuales innegociables</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1 tabular-nums">
+                <div class="p-3 rounded-xl bg-white/6 border border-white/10">
+                  <div class="text-lg font-extrabold text-primary-fixed">0%</div>
+                  <div class="text-xs text-[#cde0d4] mt-0.5">Comisión en tu tienda online propia</div>
+                </div>
+                <div class="p-3 rounded-xl bg-white/6 border border-white/10">
+                  <div class="text-lg font-extrabold text-primary-fixed">100%</div>
+                  <div class="text-xs text-[#cde0d4] mt-0.5">Propiedad de los datos de tus clientes</div>
+                </div>
+                <div class="p-3 rounded-xl bg-white/6 border border-white/10">
+                  <div class="text-lg font-extrabold text-primary-fixed">Sin plazos</div>
+                  <div class="text-xs text-[#cde0d4] mt-0.5">Cancela o baja a plan gratis cuando quieras</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Clauses */}
+            {SECTIONS.map((sec) => (
+              <article
+                id={sec.id}
+                data-legal-section
+                class="t-resize scroll-mt-24 rounded-2xl sm:rounded-3xl bg-surface-container-lowest p-5 sm:p-8 shadow-[var(--shadow-border)] flex flex-col gap-4"
+              >
+                <div class="flex items-start justify-between gap-3">
+                  <h2 class="text-lg sm:text-2xl font-extrabold text-on-surface tracking-tight leading-snug tabular-nums">
+                    <span class="text-primary mr-1.5">{sec.number}.</span>
+                    {sec.title}
+                  </h2>
+                  <button
+                    type="button"
+                    data-copy-section={sec.id}
+                    title="Copiar enlace a esta cláusula"
+                    aria-label={`Copiar enlace a la cláusula ${sec.title}`}
+                    class="w-10 h-10 rounded-xl bg-surface-container-low text-on-surface-variant hover:text-primary hover:bg-surface-container flex items-center justify-center shrink-0 cursor-pointer transition-[background-color,color,transform] duration-150 active:scale-[0.96]"
+                  >
+                    <Icon name="link" size={18} />
+                  </button>
+                </div>
+
+                {/* Plain-language Summary Callout */}
+                <div class="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-mint-subtle/75 border border-primary-container/25 flex items-start gap-3">
+                  <span class="text-primary flex shrink-0 mt-0.5">
+                    <Icon name="lightbulb" size={18} fill={true} />
+                  </span>
+                  <p class="text-xs sm:text-sm font-semibold text-on-primary-container leading-relaxed">
+                    <strong class="font-extrabold">En resumen para tu local:</strong> {sec.summary}
+                  </p>
+                </div>
+
+                {/* Full Legal Body (Collapsible when in Summary Mode via transitions/accordion.md) */}
+                <div class="t-acc" data-legal-body data-open="true">
+                  <div class="t-acc-panel">
+                    <div class="t-acc-panel-inner">
+                      <div class="flex flex-col gap-3.5 pt-1 text-sm sm:text-base text-on-surface-variant leading-relaxed">
+                        {sec.paragraphs.map((p) => (
+                          <p>{p}</p>
+                        ))}
+                        {sec.bullets && (
+                          <ul class="flex flex-col gap-2 pt-2 border-t border-surface-container">
+                            {sec.bullets.map((b) => (
+                              <li class="flex items-start gap-2.5 text-xs sm:text-sm text-on-surface font-medium">
+                                <span class="text-primary-container flex shrink-0 mt-0.5">
+                                  <Icon name="check_circle" size={17} fill={true} />
+                                </span>
+                                <span>{b}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ))}
+
+            {/* Bottom Contact / Acceptance Card */}
+            <div class="rounded-2xl sm:rounded-3xl p-5 sm:p-7 bg-surface-container-low border border-outline-variant/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div class="flex flex-col gap-1">
+                <h3 class="text-base sm:text-lg font-extrabold text-on-surface">
+                  ¿Listo para operar sin comisiones abusivas?
+                </h3>
+                <p class="text-xs sm:text-sm text-on-surface-variant">
+                  Activa tu cuenta gratuita por 14 días o escríbenos a <a href="mailto:legal@nexofood.io" class="text-primary font-semibold hover:underline">legal@nexofood.io</a>.
+                </p>
+              </div>
+              <Button
+                variant="primary"
+                size="md"
+                href="/#inicio"
+                icon="arrow_forward"
+                class="w-full sm:w-auto shrink-0"
+              >
+                Comenzar Gratis
+              </Button>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    {/* Floating Copy Link Toast (transitions/toast.md) */}
+    <div
+      id="copy-link-toast"
+      class="t-toast fixed bottom-5 right-5 z-50"
+      role="status"
+      aria-live="polite"
+    >
+      <div class="flex items-center gap-2.5 rounded-xl bg-[#111915] text-white px-4 py-3 text-xs sm:text-sm font-semibold shadow-level-3 border border-primary-fixed/30">
+        <Icon name="check_circle" size={18} class="text-primary-fixed" fill={true} />
+        <span>Enlace de la cláusula copiado al portapapeles</span>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  function initTermsPage() {
+    // 1. Sliding Tabs: Full Document vs. Executive Summary (transitions/tabs-sliding.md + accordion.md)
+    const bar = document.getElementById('legal-mode-tabs');
+    const pill = bar?.querySelector<HTMLElement>('.t-tabs-pill');
+    const tabs = bar ? Array.from(bar.querySelectorAll<HTMLElement>('.t-tab')) : [];
+    const legalBodies = document.querySelectorAll<HTMLElement>('[data-legal-body]');
+
+    if (bar && pill && tabs.length) {
+      function moveTo(tab: HTMLElement, animate: boolean) {
+        if (!pill) return;
+        if (!animate) {
+          const prev = pill.style.transition;
+          pill.style.transition = 'none';
+          pill.style.transform = `translateX(${tab.offsetLeft}px)`;
+          pill.style.width = `${tab.offsetWidth}px`;
+          void pill.offsetWidth;
+          pill.style.transition = prev;
+        } else {
+          pill.style.transform = `translateX(${tab.offsetLeft}px)`;
+          pill.style.width = `${tab.offsetWidth}px`;
+        }
+      }
+
+      const activeTab = () =>
+        tabs.find((t) => t.getAttribute('aria-selected') === 'true') || tabs[0];
+
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          tabs.forEach((t) =>
+            t.setAttribute('aria-selected', t === tab ? 'true' : 'false')
+          );
+          moveTo(tab, true);
+          const isFull = tab.dataset.readMode !== 'summary';
+          legalBodies.forEach((body) => {
+            body.setAttribute('data-open', String(isFull));
+          });
+        });
+      });
+
+      requestAnimationFrame(() => moveTo(activeTab(), false));
+      const ro = new ResizeObserver(() => moveTo(activeTab(), false));
+      ro.observe(bar);
+    }
+
+    // 2. Mobile TOC Accordion
+    const mobileToc = document.getElementById('mobile-toc');
+    const mobileTocBtn = document.getElementById('mobile-toc-btn');
+    if (mobileToc && mobileTocBtn) {
+      mobileTocBtn.addEventListener('click', () => {
+        const isOpen = mobileToc.getAttribute('data-open') === 'true';
+        mobileToc.setAttribute('data-open', String(!isOpen));
+        mobileTocBtn.setAttribute('aria-expanded', String(!isOpen));
+      });
+      mobileToc.querySelectorAll('[data-mobile-toc-link]').forEach((link) => {
+        link.addEventListener('click', () => {
+          mobileToc.setAttribute('data-open', 'false');
+          mobileTocBtn.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    // 3. Copy Clause Link + Toast (transitions/toast.md)
+    const copyBtns = document.querySelectorAll<HTMLButtonElement>('[data-copy-section]');
+    const toast = document.getElementById('copy-link-toast');
+    let toastTimer: number | null = null;
+
+    copyBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.copySection;
+        if (!id) return;
+        const url = `${window.location.origin}${window.location.pathname}#${id}`;
+        navigator.clipboard?.writeText(url);
+
+        if (toast) {
+          toast.classList.add('is-open');
+          if (toastTimer) window.clearTimeout(toastTimer);
+          toastTimer = window.setTimeout(() => {
+            toast.classList.remove('is-open');
+          }, 2600);
+        }
+      });
+    });
+
+    // 4. Active Section Highlighting in Desktop Sidebar TOC
+    const sections = document.querySelectorAll<HTMLElement>('[data-legal-section]');
+    const tocLinks = document.querySelectorAll<HTMLElement>('[data-toc-link]');
+
+    if (sections.length && tocLinks.length && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const id = entry.target.id;
+              tocLinks.forEach((link) => {
+                const active = link.dataset.tocLink === id;
+                link.classList.toggle('bg-mint-subtle', active);
+                link.classList.toggle('text-primary', active);
+                link.classList.toggle('font-bold', active);
+                link.classList.toggle('text-on-surface-variant', !active);
+              });
+            }
+          });
+        },
+        { rootMargin: '-20% 0px -65% 0px' }
+      );
+      sections.forEach((sec) => observer.observe(sec));
+    }
+  }
+
+  initTermsPage();
+  document.addEventListener('astro:page-load', initTermsPage);
+</script>
