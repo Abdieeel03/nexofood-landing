@@ -1,220 +1,254 @@
 ---
 import Container from './ui/Container.astro';
-import Button from './ui/Button.astro';
 import Icon from './ui/Icon.astro';
 ---
 
 <header
   id="site-header"
-  class="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest/92 backdrop-blur-md border-b border-border-subtle transition-[background-color,box-shadow] duration-200 ease-out"
+  class="fixed top-0 left-0 w-full z-50 border-b border-white/10 bg-inverse-surface/90 text-inverse-on-surface backdrop-blur-md transition-[background-color,border-color,color] duration-300"
 >
   <Container>
-    <div class="flex justify-between items-center py-2.5 sm:py-3.5">
-      {/* Brand Logo */}
+    <div class="flex items-center justify-between gap-2 lg:grid lg:grid-cols-[auto_1fr_auto] lg:gap-4 min-h-[68px] sm:min-h-[76px]">
+      {/* Brand Mark: Bespoke Architectural Monogram */}
       <a
         href="/#inicio"
-        class="nav-link inline-flex items-center gap-2 min-h-[44px] text-lg sm:text-2xl font-extrabold text-primary tracking-tight transition-opacity duration-150 hover:opacity-85 active:scale-[0.96]"
+        class="inline-flex items-center gap-2 min-h-[44px] text-base sm:text-xl font-bold tracking-tight text-current shrink-0"
       >
-        <span class="w-8 h-8 rounded-lg bg-primary text-on-primary inline-flex items-center justify-center shadow-[0_2px_6px_rgba(0,108,73,0.25)] shrink-0">
-          <Icon name="restaurant" size={18} fill={true} />
-        </span>
+        <svg width="26" height="26" viewBox="0 0 28 28" fill="none" aria-hidden="true" class="shrink-0 sm:w-7 sm:h-7">
+          <rect width="28" height="28" rx="7" fill="#006c49" />
+          <path d="M8.5 19.5V8.5L19.5 19.5V8.5" stroke="#6ffbbe" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+          <circle cx="19.5" cy="8.5" r="2" fill="#fe6a34" />
+        </svg>
         <span>Nexofood</span>
       </a>
 
-      {/* Desktop Navigation */}
-      <nav class="hidden lg:flex items-center gap-1" aria-label="Navegación principal">
-        <a
-          href="/#por-que"
-          class="px-3.5 py-2 rounded-lg text-sm font-semibold text-on-surface-variant hover:text-primary hover:bg-surface-container-low/70 transition-[color,background-color] duration-150"
-        >
-          Impacto Operativo
+      {/* Desktop Architectural Navigation with Eloqwnt .eloq-link sweeps */}
+      <nav class="hidden lg:flex items-center justify-center gap-8" aria-label="Navegación principal">
+        <a href="/#por-que" class="eloq-link py-2 text-sm font-medium text-current/85 hover:text-current transition-colors">
+          <span>Impacto</span>
+          <span class="eloq-link-line"></span>
         </a>
-        <a
-          href="/#productos"
-          class="px-3.5 py-2 rounded-lg text-sm font-semibold text-on-surface-variant hover:text-primary hover:bg-surface-container-low/70 transition-[color,background-color] duration-150"
-        >
-          Módulos
+        <a href="/#casos-de-exito" class="eloq-link py-2 text-sm font-medium text-current/85 hover:text-current transition-colors">
+          <span>Cocinas Reales</span>
+          <span class="eloq-link-line"></span>
         </a>
-        <a
-          href="/#precios"
-          class="px-3.5 py-2 rounded-lg text-sm font-semibold text-on-surface-variant hover:text-primary hover:bg-surface-container-low/70 transition-[color,background-color] duration-150"
-        >
-          Planes y Ahorro
+        <a href="/#productos" class="eloq-link py-2 text-sm font-medium text-current/85 hover:text-current transition-colors">
+          <span>Módulos</span>
+          <span class="eloq-link-line"></span>
         </a>
-        <a
-          href="/#casos-de-exito"
-          class="px-3.5 py-2 rounded-lg text-sm font-semibold text-on-surface-variant hover:text-primary hover:bg-surface-container-low/70 transition-[color,background-color] duration-150"
-        >
-          Cocinas Reales
+        <a href="/#precios" class="eloq-link py-2 text-sm font-medium text-current/85 hover:text-current transition-colors">
+          <span>Planes</span>
+          <span class="eloq-link-line"></span>
         </a>
       </nav>
 
-      {/* Actions */}
-      <div class="flex items-center gap-2 sm:gap-3">
+      {/* Right Actions: Fullscreen Grid Menu Toggle + Eloqwnt Curtain CTA */}
+      <div class="flex items-center justify-end gap-1.5 sm:gap-3 shrink-0">
         <a
           href="/#comienza-gratis"
-          class="hidden lg:inline-flex items-center min-h-[40px] px-3.5 py-2 rounded-xl text-sm font-semibold text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-[color,background-color,transform] duration-150 active:scale-[0.96]"
+          class="eloq-btn whitespace-nowrap min-h-[44px] px-3 sm:px-5 py-2 bg-secondary-container text-on-secondary text-xs sm:text-sm font-bold shadow-[0_2px_10px_rgba(254,106,52,0.28)]"
         >
-          Acceso Clientes
+          <span class="eloq-btn-curtain bg-primary"></span>
+          <span>Comienza Gratis</span>
+          <span class="eloq-btn-arrows hidden sm:inline-flex" aria-hidden="true">
+            <Icon name="arrow_right" size={16} />
+            <Icon name="arrow_right" size={16} />
+          </span>
         </a>
-        <Button
-          variant="primary"
-          size="sm"
-          href="/#comienza-gratis"
-          class="min-h-[40px] sm:min-h-[42px] px-3 sm:px-4 text-xs sm:text-sm"
-        >
-          Comienza Gratis
-        </Button>
 
-        {/* Mobile Menu Trigger with Contextual Icon Cross-Fade (44x44 hit area) */}
         <button
-          id="mobile-menu-btn"
+          id="eloq-menu-trigger"
           type="button"
-          class="relative flex lg:hidden items-center justify-center w-11 h-11 text-on-surface hover:bg-surface-container rounded-xl transition-[background-color,transform] duration-150 ease-out active:scale-[0.96] cursor-pointer shrink-0"
-          aria-label="Abrir menú"
+          aria-label="Abrir menú de navegación"
           aria-expanded="false"
-          aria-controls="mobile-menu-drawer"
+          aria-controls="eloq-fullscreen-menu"
+          class="inline-flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap min-h-[44px] px-2.5 sm:px-3.5 rounded-full border border-current/20 text-xs sm:text-sm font-semibold hover:bg-white/10 transition-colors cursor-pointer"
         >
-          <span class="relative flex items-center justify-center w-6 h-6">
-            <span
-              id="menu-icon-open"
-              class="flex items-center justify-center transition-[opacity,filter,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] scale-100 opacity-100 blur-0"
-            >
-              <Icon name="menu" size={24} weight={600} />
-            </span>
-            <span
-              id="menu-icon-close"
-              class="absolute inset-0 flex items-center justify-center transition-[opacity,filter,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] scale-[0.25] opacity-0 blur-[4px]"
-            >
-              <Icon name="close" size={24} weight={600} />
-            </span>
+          <span id="eloq-menu-label">Menú</span>
+          <span class="flex flex-col gap-1 w-4" aria-hidden="true">
+            <span class="block w-full h-0.5 bg-current rounded-full transition-transform duration-300" id="menu-bar-1"></span>
+            <span class="block w-3/4 h-0.5 bg-current rounded-full transition-transform duration-300" id="menu-bar-2"></span>
           </span>
         </button>
       </div>
     </div>
   </Container>
-
-  {/* Interruptible Mobile Drawer using t-acc grid-rows transition */}
-  <div
-    id="mobile-menu-drawer"
-    class="t-acc lg:hidden w-full bg-surface-container-lowest border-b border-border-subtle shadow-level-2"
-    data-open="false"
-    aria-hidden="true"
-  >
-    <div class="t-acc-panel">
-      <div class="t-acc-panel-inner max-h-[calc(100dvh-4rem)] overflow-y-auto">
-        <Container>
-          <div class="py-3.5 flex flex-col gap-3">
-            <div class="flex flex-col gap-1">
-              <a
-                href="/#por-que"
-                class="nav-link min-h-[46px] flex items-center justify-between px-3.5 py-2.5 text-base font-semibold text-on-surface rounded-xl hover:bg-surface-container-low active:bg-surface-container hover:text-primary transition-[background-color,color] duration-150"
-              >
-                <span>Impacto Operativo</span>
-                <Icon name="chevron_right" size={18} class="text-on-surface-variant" />
-              </a>
-              <a
-                href="/#productos"
-                class="nav-link min-h-[46px] flex items-center justify-between px-3.5 py-2.5 text-base font-semibold text-on-surface rounded-xl hover:bg-surface-container-low active:bg-surface-container hover:text-primary transition-[background-color,color] duration-150"
-              >
-                <span>Módulos</span>
-                <Icon name="chevron_right" size={18} class="text-on-surface-variant" />
-              </a>
-              <a
-                href="/#precios"
-                class="nav-link min-h-[46px] flex items-center justify-between px-3.5 py-2.5 text-base font-semibold text-on-surface rounded-xl hover:bg-surface-container-low active:bg-surface-container hover:text-primary transition-[background-color,color] duration-150"
-              >
-                <span>Planes y Ahorro</span>
-                <Icon name="chevron_right" size={18} class="text-on-surface-variant" />
-              </a>
-              <a
-                href="/#casos-de-exito"
-                class="nav-link min-h-[46px] flex items-center justify-between px-3.5 py-2.5 text-base font-semibold text-on-surface rounded-xl hover:bg-surface-container-low active:bg-surface-container hover:text-primary transition-[background-color,color] duration-150"
-              >
-                <span>Cocinas Reales</span>
-                <Icon name="chevron_right" size={18} class="text-on-surface-variant" />
-              </a>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-3 border-t border-border-subtle">
-              <Button
-                variant="outline"
-                fullWidth
-                size="md"
-                href="/#comienza-gratis"
-                class="nav-link"
-              >
-                Acceso Clientes
-              </Button>
-              <Button
-                variant="primary"
-                fullWidth
-                size="md"
-                href="/#comienza-gratis"
-                class="nav-link"
-              >
-                Comienza Gratis
-              </Button>
-            </div>
-          </div>
-        </Container>
-      </div>
-    </div>
-  </div>
 </header>
 
-<script>
-  function setupMobileMenu() {
-    const header = document.getElementById('site-header');
-    const btn = document.getElementById('mobile-menu-btn');
-    const drawer = document.getElementById('mobile-menu-drawer');
-    const openIcon = document.getElementById('menu-icon-open');
-    const closeIcon = document.getElementById('menu-icon-close');
+{/* Eloqwnt-style Fullscreen Architectural Menu Overlay */}
+<div
+  id="eloq-fullscreen-menu"
+  aria-hidden="true"
+  class="fixed inset-0 z-40 bg-inverse-surface text-inverse-on-surface pt-24 pb-10 px-4 md:px-10 overflow-y-auto hidden opacity-0"
+>
+  <Container class="h-full flex flex-col justify-between gap-10">
+    <div class="grid grid-cols-1 lg:grid-cols-[1.3fr_0.7fr] gap-10 pt-4 border-t border-white/12">
+      <nav aria-label="Menú completo" class="flex flex-col">
+        {[
+          { href: '/#inicio', label: 'Inicio' },
+          { href: '/#por-que', label: 'Brecha de Rentabilidad' },
+          { href: '/#casos-de-exito', label: 'Cocinas Reales' },
+          { href: '/#productos', label: 'Arquitectura de Módulos' },
+          { href: '/#precios', label: 'Planes y Preguntas Frecuentes' },
+        ].map((item, idx) => (
+          <a
+            href={item.href}
+            data-menu-item
+            class="group flex items-center justify-between py-4 sm:py-5 border-b border-white/10 text-2xl sm:text-4xl font-semibold tracking-tight text-inverse-on-surface hover:text-primary-fixed transition-colors"
+          >
+            <span class="flex items-baseline gap-4">
+              <span class="font-mono text-xs text-primary-fixed/70 tabular-nums">
+                0{idx + 1}
+              </span>
+              <span>{item.label}</span>
+            </span>
+            <span class="text-primary-fixed opacity-60 group-hover:opacity-100 group-hover:translate-x-1 transition-[opacity,transform] duration-200">
+              <Icon name="arrow_right" size={24} />
+            </span>
+          </a>
+        ))}
+      </nav>
 
-    if (!btn || !drawer || !openIcon || !closeIcon) return;
+      <div class="flex flex-col justify-between gap-8 lg:border-l lg:border-white/12 lg:pl-10">
+        <div class="flex flex-col gap-4" data-menu-meta>
+          <p class="text-lg font-medium text-inverse-on-surface leading-snug">
+            Operación gastronómica sin intermediarios ni comisiones del 28%.
+          </p>
+          <p class="text-sm text-[#b4c8bc] leading-relaxed">
+            Activa tu tienda propia web, conecta Rappi y PedidosYa al KDS central y conserva el 100% de tu base de comensales.
+          </p>
+          <a
+            href="mailto:contacto@nexofood.io"
+            class="eloq-link w-fit text-base font-semibold text-primary-fixed mt-2"
+          >
+            <span>contacto@nexofood.io</span>
+            <span class="eloq-link-line"></span>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 pt-6 border-t border-white/10 text-xs text-[#b4c8bc] tabular-nums" data-menu-meta>
+          <div>
+            <div class="font-mono text-primary-fixed text-base font-bold">3.49%</div>
+            <div class="mt-1">Solo tasa Mercado Pago</div>
+          </div>
+          <div>
+            <div class="font-mono text-primary-fixed text-base font-bold">99.9%</div>
+            <div class="mt-1">Uptime garantizado</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-white/12 text-xs text-[#9cb2a5]">
+      <span>© 2026 Nexofood Technologies</span>
+      <div class="flex items-center gap-6">
+        <a href="/#comienza-gratis" data-menu-item class="text-primary-fixed font-semibold hover:underline">
+          Solicitar activación gratuita
+        </a>
+      </div>
+    </div>
+  </Container>
+</div>
+
+<script>
+  import { ensureGsapRegistered } from '../scripts/gsap-setup';
+
+  function initHeader() {
+    const { gsap } = ensureGsapRegistered();
+    const trigger = document.getElementById('eloq-menu-trigger');
+    const menu = document.getElementById('eloq-fullscreen-menu');
+    const label = document.getElementById('eloq-menu-label');
+    const bar1 = document.getElementById('menu-bar-1');
+    const bar2 = document.getElementById('menu-bar-2');
+
+    if (!trigger || !menu || !label) return;
 
     let isOpen = false;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    function toggle(forceState?: boolean) {
-      isOpen = typeof forceState === 'boolean' ? forceState : !isOpen;
-      drawer.setAttribute('data-open', String(isOpen));
-      drawer.setAttribute('aria-hidden', String(!isOpen));
-      btn.setAttribute('aria-expanded', String(isOpen));
-      btn.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
+    const setMenuState = (open: boolean) => {
+      isOpen = open;
+      trigger.setAttribute('aria-expanded', String(open));
+      trigger.setAttribute('aria-label', open ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
+      menu.setAttribute('aria-hidden', String(!open));
+      label.textContent = open ? 'Cerrar' : 'Menú';
 
-      if (isOpen) {
-        openIcon.classList.remove('scale-100', 'opacity-100', 'blur-0');
-        openIcon.classList.add('scale-[0.25]', 'opacity-0', 'blur-[4px]');
-        closeIcon.classList.remove('scale-[0.25]', 'opacity-0', 'blur-[4px]');
-        closeIcon.classList.add('scale-100', 'opacity-100', 'blur-0');
+      if (bar1 && bar2) {
+        bar1.style.transform = open ? 'translateY(3px) rotate(45deg)' : '';
+        bar2.style.transform = open ? 'translateY(-3px) rotate(-45deg) scaleX(1.33)' : '';
+      }
+
+      if (open) {
+        menu.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+
+        if (reduceMotion) {
+          gsap.set(menu, { autoAlpha: 1 });
+          return;
+        }
+
+        const tl = gsap.timeline();
+        tl.fromTo(
+          menu,
+          { autoAlpha: 0, clipPath: 'inset(0% 0% 100% 0%)' },
+          { autoAlpha: 1, clipPath: 'inset(0% 0% 0% 0%)', duration: 0.55, ease: 'power3.inOut' }
+        )
+          .from(
+            menu.querySelectorAll('[data-menu-item]'),
+            { y: 24, autoAlpha: 0, stagger: 0.05, duration: 0.45, ease: 'power3.out', clearProps: 'transform,opacity,visibility' },
+            '-=0.25'
+          )
+          .from(
+            menu.querySelectorAll('[data-menu-meta]'),
+            { y: 16, autoAlpha: 0, stagger: 0.08, duration: 0.4, ease: 'power2.out', clearProps: 'transform,opacity,visibility' },
+            '-=0.3'
+          );
       } else {
-        openIcon.classList.remove('scale-[0.25]', 'opacity-0', 'blur-[4px]');
-        openIcon.classList.add('scale-100', 'opacity-100', 'blur-0');
-        closeIcon.classList.remove('scale-100', 'opacity-100', 'blur-0');
-        closeIcon.classList.add('scale-[0.25]', 'opacity-0', 'blur-[4px]');
+        document.body.style.overflow = '';
+        if (reduceMotion) {
+          gsap.set(menu, { autoAlpha: 0 });
+          menu.classList.add('hidden');
+          return;
+        }
+        gsap.to(menu, {
+          autoAlpha: 0,
+          clipPath: 'inset(0% 0% 100% 0%)',
+          duration: 0.4,
+          ease: 'power3.inOut',
+          onComplete: () => {
+            if (!isOpen) menu.classList.add('hidden');
+          },
+        });
       }
-    }
+    };
 
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggle();
-    });
+    const onTrigger = () => setMenuState(!isOpen);
+    const onEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) setMenuState(false);
+    };
 
-    const navLinks = drawer.querySelectorAll('.nav-link');
-    navLinks.forEach((link) => {
-      link.addEventListener('click', () => toggle(false));
-    });
+    const menuItems = menu.querySelectorAll<HTMLElement>('[data-menu-item]');
+    const onItemClick = () => {
+      if (isOpen) setMenuState(false);
+    };
 
-    document.addEventListener('click', (e) => {
-      if (isOpen && header && !header.contains(e.target as Node)) {
-        toggle(false);
-      }
-    });
+    trigger.addEventListener('click', onTrigger);
+    document.addEventListener('keydown', onEscape);
+    menuItems.forEach((el) => el.addEventListener('click', onItemClick));
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && isOpen) toggle(false);
-    });
+    return () => {
+      trigger.removeEventListener('click', onTrigger);
+      document.removeEventListener('keydown', onEscape);
+      menuItems.forEach((el) => el.removeEventListener('click', onItemClick));
+      document.body.style.overflow = '';
+    };
   }
 
-  setupMobileMenu();
-  document.addEventListener('astro:page-load', setupMobileMenu);
+  let cleanupHeader: (() => void) | undefined;
+  const mount = () => {
+    cleanupHeader?.();
+    cleanupHeader = initHeader();
+  };
+  mount();
+  document.addEventListener('astro:page-load', mount);
 </script>

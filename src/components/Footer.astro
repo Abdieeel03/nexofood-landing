@@ -3,152 +3,203 @@ import Container from './ui/Container.astro';
 import Icon from './ui/Icon.astro';
 ---
 
-<footer class="bg-surface-container-low border-t border-border-subtle pt-12 md:pt-16">
+<footer class="cv-auto-section w-full bg-surface-container-low text-on-surface border-t border-outline-variant/50 pt-16 sm:pt-20 pb-8">
   <Container>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-8 lg:gap-12 pb-12 md:pb-16">
-      {/* Brand Bio */}
-      <div class="flex flex-col gap-4 sm:col-span-2 lg:col-span-1 max-w-full lg:max-w-[22.5rem]">
-        <a
-          href="/#inicio"
-          class="inline-flex items-center gap-2 text-xl sm:text-2xl font-extrabold text-primary tracking-tight w-fit"
-        >
-          <span class="w-8 h-8 rounded-lg bg-primary text-on-primary inline-flex items-center justify-center">
-            <Icon name="restaurant" size={18} fill={true} />
+    <div class="grid grid-cols-1 lg:grid-cols-[1.35fr_0.65fr] gap-12 lg:gap-16 pb-14 border-b border-outline-variant/55">
+      {/* Left: 3 Architectural Link Columns (Eloqwnt .grid-footer-links) */}
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-8">
+        <nav aria-label="Productos" class="flex flex-col gap-3">
+          <div class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">
+            Productos
+          </div>
+          <ul class="flex flex-col gap-2.5 text-sm font-medium">
+            <li>
+              <a href="/#productos" class="eloq-link w-fit py-0.5 text-on-surface hover:text-primary transition-colors">
+                <span>Tienda Online</span>
+                <span class="eloq-link-line"></span>
+              </a>
+            </li>
+            <li>
+              <a href="/#productos" class="eloq-link w-fit py-0.5 text-on-surface hover:text-primary transition-colors">
+                <span>Gestor de Pedidos (KDS)</span>
+                <span class="eloq-link-line"></span>
+              </a>
+            </li>
+            <li>
+              <a href="/#productos" class="eloq-link w-fit py-0.5 text-on-surface hover:text-primary transition-colors">
+                <span>Logística y Delivery</span>
+                <span class="eloq-link-line"></span>
+              </a>
+            </li>
+            <li>
+              <a href="/#productos" class="eloq-link w-fit py-0.5 text-on-surface hover:text-primary transition-colors">
+                <span>Fidelización CRM</span>
+                <span class="eloq-link-line"></span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <nav aria-label="Recursos" class="flex flex-col gap-3">
+          <div class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">
+            Recursos
+          </div>
+          <ul class="flex flex-col gap-2.5 text-sm font-medium">
+            <li>
+              <a href="/#precios" class="eloq-link w-fit py-0.5 text-on-surface hover:text-primary transition-colors">
+                <span>Preguntas Frecuentes</span>
+                <span class="eloq-link-line"></span>
+              </a>
+            </li>
+            <li>
+              <a href="/#por-que" class="eloq-link w-fit py-0.5 text-on-surface hover:text-primary transition-colors">
+                <span>Métricas de Impacto</span>
+                <span class="eloq-link-line"></span>
+              </a>
+            </li>
+            <li>
+              <a href="/#casos-de-exito" class="eloq-link w-fit py-0.5 text-on-surface hover:text-primary transition-colors">
+                <span>Casos de Éxito</span>
+                <span class="eloq-link-line"></span>
+              </a>
+            </li>
+            <li>
+              <a href="/terminos-y-condiciones" class="eloq-link w-fit py-0.5 text-on-surface hover:text-primary transition-colors">
+                <span>Términos y Condiciones</span>
+                <span class="eloq-link-line"></span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <nav aria-label="Compañía" class="flex flex-col gap-3">
+          <div class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">
+            Compañía
+          </div>
+          <ul class="flex flex-col gap-2.5 text-sm font-medium">
+            <li>
+              <a href="/#por-que" class="eloq-link w-fit py-0.5 text-on-surface hover:text-primary transition-colors">
+                <span>Sobre Nosotros</span>
+                <span class="eloq-link-line"></span>
+              </a>
+            </li>
+            <li>
+              <a href="mailto:contacto@nexofood.io" class="eloq-link w-fit py-0.5 text-on-surface hover:text-primary transition-colors">
+                <span>Contacto Comercial</span>
+                <span class="eloq-link-line"></span>
+              </a>
+            </li>
+            <li>
+              <a href="/#precios" class="eloq-link w-fit py-0.5 text-on-surface hover:text-primary transition-colors">
+                <span>Planes Enterprise</span>
+                <span class="eloq-link-line"></span>
+              </a>
+            </li>
+            <li>
+              <a href="mailto:legal@nexofood.io" class="eloq-link w-fit py-0.5 text-on-surface hover:text-primary transition-colors">
+                <span>Departamento Legal</span>
+                <span class="eloq-link-line"></span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      {/* Right: Newsletter & Direct Kitchen Channel */}
+      <div class="flex flex-col justify-between gap-6">
+        <div class="flex flex-col gap-3">
+          <p class="text-sm font-bold text-on-surface">
+            Recibe guías operativas de rentabilidad gastronómica
+          </p>
+          <form id="footer-newsletter-form" class="flex items-center gap-2" novalidate>
+            <input
+              type="email"
+              id="footer-newsletter-email"
+              required
+              placeholder="tu@restaurante.com"
+              aria-label="Correo para boletín gastronómico"
+              class="flex-1 min-h-[44px] px-4 rounded-full bg-surface-container-lowest border border-outline-variant/80 text-sm text-on-surface placeholder:text-on-surface-variant/70 focus:border-primary outline-none"
+            />
+            <button
+              type="submit"
+              aria-label="Suscribirse al boletín"
+              class="w-11 h-11 rounded-full bg-inverse-surface text-inverse-on-surface hover:bg-primary flex items-center justify-center transition-colors shrink-0 cursor-pointer"
+            >
+              <Icon name="arrow_right" size={18} />
+            </button>
+          </form>
+          <p id="footer-newsletter-msg" class="text-xs text-on-surface-variant" role="status" aria-live="polite">
+            Sin spam. Respetamos la propiedad de tus datos.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-5 text-xs font-medium text-on-surface-variant">
+          <span class="inline-flex items-center gap-1.5">
+            <Icon name="lock" size={15} class="text-primary" />
+            Pagos Seguros PCI-DSS
           </span>
-          <span>Nexofood</span>
-        </a>
-        <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
-          La plataforma operativa integral para restaurantes modernos.
-          Gestiona pedidos, menú y logística desde un solo lugar sin
-          comisiones abusivas.
-        </p>
-        {/* 44x44px minimum hit areas per make-interfaces-feel-better */}
-        <div class="flex items-center gap-2.5 text-on-surface-variant mt-1">
-          <a
-            href="/#inicio"
-            class="w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center text-on-surface-variant transition-[background-color,color,transform] duration-150 ease-out hover:bg-primary hover:text-on-primary active:scale-[0.96] cursor-pointer"
-            aria-label="Sitio web global"
-          >
-            <Icon name="language" size={20} />
-          </a>
-          <a
-            href="mailto:contacto@nexofood.io"
-            class="w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center text-on-surface-variant transition-[background-color,color,transform] duration-150 ease-out hover:bg-primary hover:text-on-primary active:scale-[0.96] cursor-pointer"
-            aria-label="Contacto por correo"
-          >
-            <Icon name="mail" size={20} />
-          </a>
+          <span class="inline-flex items-center gap-1.5">
+            <Icon name="shield" size={15} class="text-primary" />
+            SSL 256-bit
+          </span>
         </div>
       </div>
+    </div>
 
-      {/* Col 1: Productos */}
-      <div class="flex flex-col gap-3 sm:gap-4">
-        <h3 class="text-xs sm:text-sm font-bold text-on-surface">Productos</h3>
-        <ul class="flex flex-col gap-2">
-          <li>
-            <a href="/#productos" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
-              Tienda Online
-            </a>
-          </li>
-          <li>
-            <a href="/#productos" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
-              Gestor de Pedidos (KDS)
-            </a>
-          </li>
-          <li>
-            <a href="/#productos" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
-              Logística y Delivery
-            </a>
-          </li>
-          <li>
-            <a href="/#productos" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
-              Fidelización CRM
-            </a>
-          </li>
-        </ul>
-      </div>
+    {/* Bottom Brand Signature */}
+    <div class="pt-7 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-on-surface-variant tabular-nums">
+      <a href="/#inicio" class="inline-flex items-center gap-2 text-base font-bold text-on-surface tracking-tight">
+        <svg width="24" height="24" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <rect width="28" height="28" rx="7" fill="#006c49" />
+          <path d="M8.5 19.5V8.5L19.5 19.5V8.5" stroke="#6ffbbe" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+          <circle cx="19.5" cy="8.5" r="2" fill="#fe6a34" />
+        </svg>
+        <span>Nexofood</span>
+      </a>
 
-      {/* Col 2: Recursos */}
-      <div class="flex flex-col gap-3 sm:gap-4">
-        <h3 class="text-xs sm:text-sm font-bold text-on-surface">Recursos</h3>
-        <ul class="flex flex-col gap-2">
-          <li>
-            <a href="/#precios" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
-              Preguntas Frecuentes
-            </a>
-          </li>
-          <li>
-            <a href="/#por-que" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
-              Métricas de Impacto
-            </a>
-          </li>
-          <li>
-            <a href="/#casos-de-exito" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
-              Casos de Éxito
-            </a>
-          </li>
-          <li>
-            <a href="/terminos-y-condiciones" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
-              Términos y Condiciones
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      {/* Col 3: Compañía */}
-      <div class="flex flex-col gap-3 sm:gap-4">
-        <h3 class="text-xs sm:text-sm font-bold text-on-surface">Compañía</h3>
-        <ul class="flex flex-col gap-2">
-          <li>
-            <a href="/#por-que" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
-              Sobre Nosotros
-            </a>
-          </li>
-          <li>
-            <a href="mailto:contacto@nexofood.io" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
-              Contacto Comercial
-            </a>
-          </li>
-          <li>
-            <a href="/#precios" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
-              Planes Enterprise
-            </a>
-          </li>
-          <li>
-            <a href="mailto:legal@nexofood.io" class="text-xs sm:text-sm text-on-surface-variant hover:text-primary transition-[color,transform] duration-150 inline-block hover:translate-x-0.5 py-0.5">
-              Departamento Legal
-            </a>
-          </li>
-        </ul>
+      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+        <span>© 2026 Nexofood Technologies.</span>
+        <a href="/terminos-y-condiciones" class="font-semibold text-primary hover:underline">
+          Términos y Condiciones
+        </a>
+        <a href="mailto:contacto@nexofood.io" class="hover:text-on-surface transition-colors">
+          contacto@nexofood.io
+        </a>
       </div>
     </div>
   </Container>
-
-  {/* Bottom bar */}
-  <div class="border-t border-border-subtle py-4">
-    <Container>
-      <div class="flex flex-col sm:flex-row justify-between items-center gap-3 text-center sm:text-left tabular-nums">
-        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-x-4 gap-y-1 text-xs text-on-surface-variant">
-          <span>© 2026 Nexofood Technologies.</span>
-          <a href="/terminos-y-condiciones" class="font-semibold text-primary hover:underline">
-            Términos y Condiciones
-          </a>
-        </div>
-        <div class="flex items-center gap-4 sm:gap-6 text-xs text-on-surface-variant font-medium">
-          <div class="flex items-center gap-1.5">
-            <span class="text-primary flex">
-              <Icon name="lock" size={16} />
-            </span>
-            <span>Pagos Seguros PCI-DSS</span>
-          </div>
-          <div class="flex items-center gap-1.5">
-            <span class="text-primary flex">
-              <Icon name="verified_user" size={16} />
-            </span>
-            <span>SSL 256-bit</span>
-          </div>
-        </div>
-      </div>
-    </Container>
-  </div>
 </footer>
+
+<script>
+  function initFooterNewsletter() {
+    const form = document.getElementById('footer-newsletter-form') as HTMLFormElement | null;
+    const input = document.getElementById('footer-newsletter-email') as HTMLInputElement | null;
+    const msg = document.getElementById('footer-newsletter-msg');
+    if (!form || !input || !msg) return;
+
+    const onSubmit = (e: Event) => {
+      e.preventDefault();
+      const val = input.value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val)) {
+        msg.textContent = 'Ingresa un correo válido para suscribirte.';
+        msg.classList.add('text-error');
+        return;
+      }
+      msg.classList.remove('text-error');
+      msg.classList.add('text-primary', 'font-semibold');
+      msg.textContent = `Suscripción confirmada para ${val}.`;
+      input.value = '';
+    };
+
+    form.addEventListener('submit', onSubmit);
+    return () => form.removeEventListener('submit', onSubmit);
+  }
+
+  let cleanupFooter: (() => void) | undefined;
+  const mount = () => {
+    cleanupFooter?.();
+    cleanupFooter = initFooterNewsletter();
+  };
+  mount();
+  document.addEventListener('astro:page-load', mount);
+</script>

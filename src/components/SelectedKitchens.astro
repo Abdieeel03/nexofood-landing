@@ -1,0 +1,286 @@
+---
+import Container from './ui/Container.astro';
+import Icon from './ui/Icon.astro';
+
+interface KitchenCase {
+  id: string;
+  location: string;
+  brand: string;
+  author: string;
+  role: string;
+  quote: string;
+  metrics: { value: string; label: string }[];
+  uiKind: 'storefront' | 'kds' | 'radar';
+}
+
+const KITCHEN_CASES: KitchenCase[] = [
+  {
+    id: 'burger-republic',
+    location: 'Lima, Perú · Canal Directo',
+    brand: 'Burger Republic',
+    author: 'Martín Benítez',
+    role: 'Fundador',
+    quote:
+      'Antes perdíamos hasta el 28% de cada venta en comisiones de apps. Con la tienda propia de Nexofood pasamos el 45% de nuestras ventas a canal directo y ahorramos más de $2,400 USD mensuales.',
+    metrics: [
+      { value: '+$2,400', label: 'USD ahorrados/mes' },
+      { value: '45%', label: 'Ventas canal propio' },
+      { value: '3.49%', label: 'Solo tasa Mercado Pago' },
+    ],
+    uiKind: 'storefront',
+  },
+  {
+    id: 'takumi-nikkei',
+    location: 'Bogotá, Colombia · KDS Multicanal',
+    brand: 'Takumi Nikkei',
+    author: 'Camila Restrepo',
+    role: 'Chef Ejecutiva',
+    quote:
+      'El KDS en cocina cambió el caos del fin de semana por un despacho ordenado. Cero comandas extraviadas y redujimos el tiempo de preparación promedio de 26 a 17 minutos.',
+    metrics: [
+      { value: '17 min', label: 'Despacho promedio' },
+      { value: '0', label: 'Comandas perdidas' },
+      { value: '99.4%', label: 'SLA cumplido' },
+    ],
+    uiKind: 'kds',
+  },
+  {
+    id: 'donatello-pizza',
+    location: 'Buenos Aires, Argentina · Logística & CRM',
+    brand: 'Donatello Pizza',
+    author: 'Esteban Morales',
+    role: 'Director de Operaciones',
+    quote:
+      'El tracking en vivo y los mensajes por WhatsApp hicieron que los clientes dejen de llamar preguntando por su pedido. La fidelización y pedidos recurrentes subieron un 35%.',
+    metrics: [
+      { value: '+35%', label: 'Recompra directa' },
+      { value: '-82%', label: 'Llamadas al local' },
+      { value: '4.9★', label: 'Satisfacción GPS' },
+    ],
+    uiKind: 'radar',
+  },
+];
+---
+
+<section id="casos-de-exito" class="w-full bg-surface-container-lowest text-on-surface border-b border-border-subtle py-16 sm:py-24 lg:py-28">
+  <Container>
+    {/* Section Header */}
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-12 sm:pb-16 border-b border-outline-variant/50">
+      <h2 data-split="cases" class="type-h2 font-bold text-on-surface max-w-[44rem]">
+        Cocinas reales que cerraron la brecha entre volumen y margen neto.
+      </h2>
+      <div class="flex items-center gap-3 text-xs sm:text-sm font-semibold text-on-surface-variant tabular-nums shrink-0">
+        <span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span>
+        <span>4.9/5 calificación promedio en +1,200 locales</span>
+      </div>
+    </div>
+
+    {/* Eloqwnt Alternating Full-Width Case Studies (.home-work-item) */}
+    <div class="flex flex-col divide-y divide-outline-variant/50">
+      {KITCHEN_CASES.map((item, idx) => {
+        const isReversed = idx % 2 === 1;
+        return (
+          <article class="py-12 sm:py-16 lg:py-20 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Editorial Copy + 3-Metric Strip */}
+            <div
+              class={`lg:col-span-5 flex flex-col justify-between gap-7 ${
+                isReversed ? 'lg:order-2' : 'lg:order-1'
+              }`}
+            >
+              <div class="flex flex-col gap-4">
+                <span class="font-mono text-xs text-primary font-semibold tracking-wide">
+                  {item.location}
+                </span>
+                <h3 class="type-h3 font-bold text-on-surface">
+                  {item.brand}
+                </h3>
+                <p class="font-editorial italic text-xl sm:text-2xl text-on-surface leading-snug">
+                  “{item.quote}”
+                </p>
+                <div class="text-xs sm:text-sm text-on-surface-variant font-medium">
+                  <strong class="text-on-surface font-bold">{item.author}</strong> · {item.role}
+                </div>
+              </div>
+
+              {/* 3-Column Metrics Row (Eloqwnt .h-w-result-wrap) */}
+              <div class="grid grid-cols-3 gap-4 pt-6 border-t border-outline-variant/50 tabular-nums">
+                {item.metrics.map((m) => (
+                  <div>
+                    <div class="text-xl sm:text-2xl font-bold text-primary tracking-tight">
+                      {m.value}
+                    </div>
+                    <div class="text-xs text-on-surface-variant mt-1 leading-snug">
+                      {m.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <a
+                href="/#productos"
+                class="eloq-link w-fit text-sm font-bold text-on-surface hover:text-primary transition-colors"
+              >
+                <span class="inline-flex items-center gap-2 py-1">
+                  <span>Ver arquitectura aplicada</span>
+                  <Icon name="arrow_right" size={16} />
+                </span>
+                <span class="eloq-link-line"></span>
+              </a>
+            </div>
+
+            {/* Large Interactive Product Viewport Showcase (Eloqwnt .img-project-wrapper) */}
+            <div
+              class={`lg:col-span-7 ${isReversed ? 'lg:order-1' : 'lg:order-2'}`}
+              data-case-visual
+            >
+              <div class="rounded-2xl bg-inverse-surface text-inverse-on-surface p-5 sm:p-8 border border-white/10 shadow-level-2 overflow-hidden relative">
+                <div class="flex items-center justify-between pb-4 mb-5 border-b border-white/10 font-mono text-xs text-[#b4c8bc]">
+                  <span>
+                    {item.uiKind === 'storefront' && 'STOREFRONT.NEXOFOOD / CHECKOUT MERCADO PAGO'}
+                    {item.uiKind === 'kds' && 'KDS.CENTRAL / 4 ESTACIONES ACTIVAS'}
+                    {item.uiKind === 'radar' && 'DELIVERY.GPS / WHATSAPP BOT'}
+                  </span>
+                  <span class="text-primary-fixed">LIVE TELEMETRY</span>
+                </div>
+
+                {item.uiKind === 'storefront' && (
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 items-center">
+                    <div class="flex flex-col gap-3">
+                      <div class="p-3.5 rounded-xl bg-white/[0.05] border border-white/10">
+                        <div class="text-xs text-[#b4c8bc]">Pedido directo · Web propia</div>
+                        <div class="text-lg font-bold text-white mt-1">Combo Burger Republic × 2</div>
+                        <div class="font-mono text-xs text-primary-fixed mt-1 tabular-nums">
+                          + Upselling automático: Papas Trufadas (S/ 16.00)
+                        </div>
+                      </div>
+                      <div class="p-3.5 rounded-xl bg-primary/25 border border-primary-fixed/30 flex items-center justify-between gap-2 tabular-nums">
+                        <span class="text-xs font-medium text-white">Cobro directo vía Mercado Pago</span>
+                        <span class="font-mono text-sm font-bold text-primary-fixed shrink-0">3.49% MP</span>
+                      </div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-[#0b110e] border border-white/10 flex flex-col gap-3 tabular-nums">
+                      <div class="flex justify-between text-xs text-[#b4c8bc]">
+                        <span>Total venta directa</span>
+                        <span class="text-white font-bold">S/ 148.00</span>
+                      </div>
+                      <div class="flex justify-between text-xs text-[#b4c8bc]">
+                        <span>Tarifa Mercado Pago</span>
+                        <span class="text-secondary-fixed font-bold">-S/ 6.17</span>
+                      </div>
+                      <div class="h-px bg-white/10"></div>
+                      <div class="flex justify-between text-sm font-bold text-white">
+                        <span>Ingreso neto local</span>
+                        <span class="text-primary-fixed">S/ 141.83</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {item.uiKind === 'kds' && (
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 tabular-nums">
+                    <div class="p-3.5 rounded-xl bg-white/[0.05] border border-white/10 flex flex-col gap-2">
+                      <div class="flex justify-between font-mono text-xs text-primary-fixed">
+                        <span>#RP-812</span>
+                        <span>06:14</span>
+                      </div>
+                      <div class="text-sm font-bold text-white">Barra Fría</div>
+                      <div class="text-xs text-[#c7dcd0]">2× Acevichado Roll + Gyozas</div>
+                      <span class="mt-auto text-[11px] font-semibold text-primary-fixed">En armado</span>
+                    </div>
+                    <div class="p-3.5 rounded-xl bg-white/[0.05] border border-white/10 flex flex-col gap-2">
+                      <div class="flex justify-between font-mono text-xs text-secondary-fixed">
+                        <span>#NF-813</span>
+                        <span>04:40</span>
+                      </div>
+                      <div class="text-sm font-bold text-white">Plancha Wok</div>
+                      <div class="text-xs text-[#c7dcd0]">1× Lomo Saltado Nikkei</div>
+                      <span class="mt-auto text-[11px] font-semibold text-secondary-fixed">Prioridad alta</span>
+                    </div>
+                    <div class="p-3.5 rounded-xl bg-primary/25 border border-primary-fixed/30 flex flex-col gap-2">
+                      <div class="flex justify-between font-mono text-xs text-primary-fixed">
+                        <span>#WA-814</span>
+                        <span>LISTO</span>
+                      </div>
+                      <div class="text-sm font-bold text-white">Empaque</div>
+                      <div class="text-xs text-[#ebf3eb]">Listo en 17 min totales</div>
+                      <span class="mt-auto text-[11px] font-bold text-primary-fixed">Sin re-digitación</span>
+                    </div>
+                  </div>
+                )}
+
+                {item.uiKind === 'radar' && (
+                  <div class="grid grid-cols-1 sm:grid-cols-[1.1fr_0.9fr] gap-5 items-center tabular-nums">
+                    <div class="p-4 rounded-xl bg-[#0b110e] border border-white/10 flex flex-col gap-3">
+                      <div class="flex items-center justify-between text-xs">
+                        <span class="text-primary-fixed font-semibold">En camino · Motorizado #04</span>
+                        <span class="font-mono text-white">ETA 07 min</span>
+                      </div>
+                      <div class="h-2 w-full rounded-full bg-white/10 overflow-hidden">
+                        <div class="h-full w-4/5 bg-primary-fixed rounded-full"></div>
+                      </div>
+                      <p class="text-xs text-[#b4c8bc]">
+                        Notificación automática enviada por WhatsApp con enlace GPS en tiempo real.
+                      </p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-white/[0.05] border border-white/10 flex flex-col gap-1.5">
+                      <span class="font-mono text-xs text-secondary-fixed">CRM · CLIENTE RECURRENTE</span>
+                      <span class="text-sm font-bold text-white">Cupón 14 días activado</span>
+                      <span class="text-xs text-[#c7dcd0]">+35% tasa de recompra directa</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </Container>
+</section>
+
+<script>
+  import { ensureGsapRegistered } from '../scripts/gsap-setup';
+
+  function initSelectedKitchens() {
+    const { gsap, ScrollTrigger } = ensureGsapRegistered();
+
+    const mm = gsap.matchMedia();
+    mm.add(
+      {
+        canAnimate: '(prefers-reduced-motion: no-preference)',
+      },
+      (context) => {
+        if (!context.conditions?.canAnimate) return;
+
+        ScrollTrigger.batch('[data-case-visual]', {
+          start: 'top 92%',
+          once: true,
+          onEnter: (batch) => {
+            gsap.fromTo(
+              batch,
+              { y: 24, clipPath: 'inset(6% 0% 6% 0%)' },
+              {
+                y: 0,
+                clipPath: 'inset(0% 0% 0% 0%)',
+                duration: 0.75,
+                stagger: 0.1,
+                ease: 'power3.out',
+                clearProps: 'transform,clipPath',
+              }
+            );
+          },
+        });
+      }
+    );
+
+    return () => mm.revert();
+  }
+
+  let cleanupCases: (() => void) | undefined;
+  const mount = () => {
+    cleanupCases?.();
+    cleanupCases = initSelectedKitchens();
+  };
+  mount();
+  document.addEventListener('astro:page-load', mount);
+</script>

@@ -13,7 +13,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="es" class="antialiased">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -28,15 +28,76 @@ const {
     />
     <meta name="author" content="Nexofood" />
 
-    {/* Preconnect & Google Fonts */}
+    {/* Preconnect & Editorial Typography (Bricolage Grotesque + Instrument Serif + JetBrains Mono) */}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
   </head>
-  <body class="min-h-screen flex flex-col">
+  <body class="min-h-[100dvh] flex flex-col bg-background text-on-background">
     <slot />
+
+    <script>
+      import { ensureGsapRegistered } from '../scripts/gsap-setup';
+
+      function initGlobalMotion() {
+        const { gsap, ScrollTrigger } = ensureGsapRegistered();
+
+        // Smooth Anchor Scrolling via ScrollToPlugin
+        const anchorLinks = document.querySelectorAll<HTMLAnchorElement>('a[href^="/#"], a[href^="#"]');
+        const onAnchorClick = (e: MouseEvent) => {
+          const anchor = e.currentTarget as HTMLAnchorElement;
+          const href = anchor.getAttribute('href') || '';
+          const hashIdx = href.indexOf('#');
+          if (hashIdx === -1) return;
+          const hash = href.slice(hashIdx);
+          if (hash.length <= 1) return;
+
+          const isSamePage =
+            href.startsWith('#') ||
+            (href.startsWith('/#') && window.location.pathname === '/');
+
+          if (!isSamePage) return;
+
+          const target = document.querySelector(hash);
+          if (!target) return;
+
+          e.preventDefault();
+          const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (reduceMotion) {
+            target.scrollIntoView({ behavior: 'auto' });
+          } else {
+            gsap.to(window, {
+              duration: 0.9,
+              ease: 'power3.inOut',
+              scrollTo: { y: target, offsetY: 76 },
+            });
+          }
+        };
+
+        anchorLinks.forEach((a) => a.addEventListener('click', onAnchorClick));
+
+        // Ensure ScrollTrigger positions recalculate cleanly after fonts finish loading
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(() => {
+            ScrollTrigger.refresh();
+          });
+        }
+
+        return () => {
+          anchorLinks.forEach((a) => a.removeEventListener('click', onAnchorClick));
+        };
+      }
+
+      let cleanupGlobal: (() => void) | undefined;
+      const mount = () => {
+        cleanupGlobal?.();
+        cleanupGlobal = initGlobalMotion();
+      };
+      mount();
+      document.addEventListener('astro:page-load', mount);
+    </script>
   </body>
 </html>

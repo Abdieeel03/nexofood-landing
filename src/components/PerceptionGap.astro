@@ -1,0 +1,330 @@
+---
+import Container from './ui/Container.astro';
+import Icon from './ui/Icon.astro';
+
+const IMPACT_SPECS = [
+  {
+    value: '+15%',
+    target: 15,
+    prefix: '+',
+    suffix: '%',
+    decimals: 0,
+    label: 'Aumento Ticket Promedio',
+    detail: 'Upselling automático de bebidas y acompañamientos en el checkout.',
+  },
+  {
+    value: '+100k',
+    target: 100,
+    prefix: '+',
+    suffix: 'k',
+    decimals: 0,
+    label: 'Negocios Activos',
+    detail: 'Desde locales independientes hasta cadenas con más de 40 sucursales.',
+  },
+  {
+    value: '3.49%',
+    target: 3.49,
+    prefix: '',
+    suffix: '%',
+    decimals: 2,
+    label: 'Solo Tasa Mercado Pago',
+    detail: 'Sin recargos de Nexofood: solo la tarifa estándar de Mercado Pago (3.49% + S/ 1 por cobro).',
+  },
+  {
+    value: '99.9%',
+    target: 99.9,
+    prefix: '',
+    suffix: '%',
+    decimals: 1,
+    label: 'Uptime Garantizado',
+    detail: 'Infraestructura redundante para viernes y sábados de máxima demanda.',
+  },
+];
+---
+
+<section
+  id="por-que"
+  class="w-full bg-surface text-on-surface border-b border-border-subtle py-16 sm:py-24 lg:py-28"
+>
+  <Container>
+    {/* Eloqwnt Split Narrative Layout: Interactive Operational Simulator Left + Editorial Thesis Right */}
+    <div class="grid grid-cols-1 lg:grid-cols-[0.88fr_1.12fr] gap-10 lg:gap-16 items-start">
+      {/* Left: Interactive Showreel / Margin Bleed vs Direct Recovery Simulator */}
+      <div class="w-full flex flex-col gap-5 lg:sticky lg:top-28">
+        <div
+          class="rounded-2xl bg-inverse-surface text-inverse-on-surface p-5 sm:p-6 border border-white/10 shadow-level-2 flex flex-col gap-5"
+        >
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-white/10">
+            <span class="font-mono text-xs uppercase tracking-wider text-primary-fixed">
+              Simulador de Cierre Mensual
+            </span>
+            <span class="font-mono text-xs text-[#b4c8bc] tabular-nums" id="gap-orders-label">
+              600 pedidos / mes
+            </span>
+          </div>
+
+          {/* Interactive Range Control (gsap.utils.mapRange driven) */}
+          <div class="flex flex-col gap-2">
+            <label for="gap-orders-slider" class="text-xs font-medium text-[#c7dcd0] flex justify-between">
+              <span>Volumen mensual en delivery</span>
+              <span class="font-mono text-white tabular-nums" id="gap-gmv-label">S/ 45,000 venta bruta</span>
+            </label>
+            <input
+              id="gap-orders-slider"
+              type="range"
+              min="150"
+              max="2000"
+              step="50"
+              value="600"
+              class="w-full accent-[#10b981] cursor-pointer h-2 rounded-full bg-white/15"
+            />
+          </div>
+
+          {/* Visual Bar Comparison */}
+          <div class="flex flex-col gap-4 pt-2">
+            <div class="flex flex-col gap-1.5">
+              <div class="flex justify-between text-xs tabular-nums">
+                <span class="text-[#c7dcd0]">Apps de Terceros (28% comisión)</span>
+                <span class="font-mono font-bold text-tertiary-fixed" id="gap-fee-loss">-S/ 12,600 retenidos</span>
+              </div>
+              <div class="w-full h-3 rounded-full bg-white/10 overflow-hidden flex">
+                <div class="h-full bg-primary-container transition-all duration-300" style="width: 72%"></div>
+                <div class="h-full bg-secondary-container transition-all duration-300" style="width: 28%"></div>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-1.5">
+              <div class="flex justify-between text-xs tabular-nums">
+                <span class="text-white font-semibold">Tienda Propia · Mercado Pago (3.49%)</span>
+                <span class="font-mono font-bold text-primary-fixed" id="gap-net-gain">+S/ 10,430 ahorrados/mes</span>
+              </div>
+              <div class="w-full h-3 rounded-full bg-white/10 overflow-hidden flex">
+                <div class="h-full bg-primary-fixed" style="width: 95%"></div>
+                <div class="h-full bg-secondary-container/70" style="width: 5%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-white/10 flex items-center justify-between gap-4 text-xs text-[#b4c8bc] tabular-nums">
+            <span>Ahorro neto proyectado a 12 meses</span>
+            <span class="font-mono text-lg font-bold text-primary-fixed" id="gap-annual-gain">+S/ 125,154</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-medium text-on-surface-variant px-1">
+          <span>Ticket promedio S/ 75 · Incluye tasa Mercado Pago (3.49% + S/ 1)</span>
+          <a href="/#precios" class="eloq-link font-semibold text-primary">
+            <span>Ver planes y tarifas</span>
+            <span class="eloq-link-line"></span>
+          </a>
+        </div>
+      </div>
+
+      {/* Right: Editorial Thesis with SplitText Scrub Reveal */}
+      <div class="flex flex-col gap-7">
+        <h2
+          data-split="gap"
+          class="type-h2 font-bold text-on-surface"
+        >
+          Ingeniería operativa que se nota en el cierre de caja — y cierra la brecha entre tu cocina y tu rentabilidad.
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm sm:text-base text-on-surface-variant leading-relaxed">
+          <p data-gap-scrub>
+            Reemplaza el caos de múltiples tablets y comisiones del 28% por un flujo directo diseñado para gastronomía. Cuando un restaurante depende solo de agregadores externos, pierde el margen del plato y el contacto real con su comensal.
+          </p>
+          <p data-gap-scrub>
+            Nexofood unifica tienda online propia, pantallas KDS en cocina, logística híbrida y CRM de retención en una sola arquitectura operativa sin cobros por volumen ni contratos de permanencia.
+          </p>
+        </div>
+
+        <div class="pt-2">
+          <a
+            href="/#casos-de-exito"
+            class="eloq-btn min-h-[48px] px-6 py-3 bg-inverse-surface text-inverse-on-surface text-sm font-bold"
+          >
+            <span class="eloq-btn-curtain bg-primary"></span>
+            <span>Explorar cocinas reales</span>
+            <span class="eloq-btn-arrows" aria-hidden="true">
+              <Icon name="arrow_right" size={16} />
+              <Icon name="arrow_right" size={16} />
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    {/* Architectural Hairline Specification Strip (Replaces old 4-card box) */}
+    <div class="mt-16 sm:mt-20 pt-10 border-t border-outline-variant/50 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 lg:divide-x lg:divide-outline-variant/50">
+      {IMPACT_SPECS.map((stat, idx) => (
+        <div class={`flex flex-col justify-between gap-3 ${idx === 0 ? 'lg:pr-8' : idx === 3 ? 'lg:pl-8' : 'lg:px-8'}`}>
+          <div>
+            <div
+              class="text-4xl sm:text-5xl font-bold text-primary tracking-tight tabular-nums"
+              data-stat-counter
+              data-target={stat.target}
+              data-prefix={stat.prefix}
+              data-suffix={stat.suffix}
+              data-decimals={stat.decimals}
+            >
+              {stat.value}
+            </div>
+            <div class="text-base font-bold text-on-surface mt-2">
+              {stat.label}
+            </div>
+          </div>
+          <p class="text-sm text-on-surface-variant leading-relaxed">
+            {stat.detail}
+          </p>
+        </div>
+      ))}
+    </div>
+  </Container>
+</section>
+
+<script>
+  import { ensureGsapRegistered } from '../scripts/gsap-setup';
+
+  function initPerceptionGap() {
+    const { gsap, ScrollTrigger, SplitText } = ensureGsapRegistered();
+
+    // 1. Live Margin Bleed Calculator using gsap.utils.mapRange
+    const slider = document.getElementById('gap-orders-slider') as HTMLInputElement | null;
+    const ordersLabel = document.getElementById('gap-orders-label');
+    const gmvLabel = document.getElementById('gap-gmv-label');
+    const feeLossLabel = document.getElementById('gap-fee-loss');
+    const netGainLabel = document.getElementById('gap-net-gain');
+    const annualGainLabel = document.getElementById('gap-annual-gain');
+
+    const mapGmv = gsap.utils.mapRange(150, 2000, 11250, 150000);
+    const fmt = (n: number) => Math.round(n).toLocaleString('en-US');
+
+    const updateSimulator = () => {
+      if (!slider) return;
+      const orders = Number(slider.value);
+      const gmv = mapGmv(orders);
+      const appsFee = gmv * 0.28;
+      const mpFee = gmv * 0.0349 + orders * 1;
+      const monthlySavings = appsFee - mpFee;
+      const annual = monthlySavings * 12;
+
+      if (ordersLabel) ordersLabel.textContent = `${fmt(orders)} pedidos / mes`;
+      if (gmvLabel) gmvLabel.textContent = `S/ ${fmt(gmv)} venta bruta`;
+      if (feeLossLabel) feeLossLabel.textContent = `-S/ ${fmt(appsFee)} retenidos`;
+      if (netGainLabel) netGainLabel.textContent = `+S/ ${fmt(monthlySavings)} ahorrados/mes`;
+      if (annualGainLabel) annualGainLabel.textContent = `+S/ ${fmt(annual)}`;
+    };
+
+    slider?.addEventListener('input', updateSimulator);
+    updateSimulator();
+
+    // 2. GSAP SplitText & ScrollTrigger Animations
+    const mm = gsap.matchMedia();
+    mm.add(
+      {
+        canAnimate: '(prefers-reduced-motion: no-preference)',
+      },
+      (context) => {
+        if (!context.conditions?.canAnimate) return;
+
+        const splits: SplitText[] = [];
+
+        const gapHeading = document.querySelector<HTMLElement>('[data-split="gap"]');
+        if (gapHeading) {
+          splits.push(
+            SplitText.create(gapHeading, {
+              type: 'lines',
+              mask: 'lines',
+              autoSplit: true,
+              onSplit(self) {
+                return gsap.from(self.lines, {
+                  yPercent: 100,
+                  autoAlpha: 0,
+                  duration: 0.75,
+                  stagger: 0.08,
+                  ease: 'power3.out',
+                  clearProps: 'transform,opacity,visibility',
+                  scrollTrigger: {
+                    trigger: gapHeading,
+                    start: 'top 90%',
+                    toggleActions: 'play none play none',
+                    once: true,
+                  },
+                });
+              },
+            })
+          );
+        }
+
+        // Scrubbed word opacity highlight inspired by Eloqwnt's blackout-text-animation
+        document.querySelectorAll<HTMLElement>('[data-gap-scrub]').forEach((para) => {
+          splits.push(
+            SplitText.create(para, {
+              type: 'words',
+              autoSplit: true,
+              onSplit(self) {
+                return gsap.fromTo(
+                  self.words,
+                  { opacity: 0.28 },
+                  {
+                    opacity: 1,
+                    stagger: 0.05,
+                    ease: 'none',
+                    scrollTrigger: {
+                      trigger: para,
+                      start: 'top 88%',
+                      end: 'bottom 58%',
+                      scrub: 0.8,
+                    },
+                  }
+                );
+              },
+            })
+          );
+        });
+
+        // Stat Counters
+        document.querySelectorAll<HTMLElement>('[data-stat-counter]').forEach((el) => {
+          const target = parseFloat(el.dataset.target || '0');
+          const prefix = el.dataset.prefix || '';
+          const suffix = el.dataset.suffix || '';
+          const decimals = parseInt(el.dataset.decimals || '0', 10);
+          if (target === 0) return;
+
+          const obj = { val: 0 };
+          gsap.to(obj, {
+            val: target,
+            duration: 1.2,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 92%',
+              toggleActions: 'play none play none',
+              once: true,
+            },
+            onUpdate() {
+              el.textContent = `${prefix}${obj.val.toFixed(decimals)}${suffix}`;
+            },
+          });
+        });
+
+        return () => {
+          splits.forEach((s) => s.revert());
+        };
+      }
+    );
+
+    return () => {
+      mm.revert();
+      slider?.removeEventListener('input', updateSimulator);
+    };
+  }
+
+  let cleanupGap: (() => void) | undefined;
+  const mount = () => {
+    cleanupGap?.();
+    cleanupGap = initPerceptionGap();
+  };
+  mount();
+  document.addEventListener('astro:page-load', mount);
+</script>
