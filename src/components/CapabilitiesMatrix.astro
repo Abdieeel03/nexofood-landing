@@ -1,0 +1,247 @@
+---
+import Container from './ui/Container.astro';
+import Icon from './ui/Icon.astro';
+
+interface Capability {
+  id: string;
+  tag: string;
+  title: string;
+  description: string;
+  metric: string;
+  bullets: string[];
+  blueprintSteps: { step: string; detail: string; badge: string }[];
+}
+
+const CAPABILITIES: Capability[] = [
+  {
+    id: 'tienda-online',
+    tag: 'SOLO 3.49% MP',
+    title: 'Tienda Online Propia',
+    description:
+      'Publica tu propio canal de venta digital en minutos. Permite a tus comensales pedir directamente sin intermediarios que te quiten hasta un 30%.',
+    metric: '4.8× conversión móvil',
+    bullets: [
+      'Checkout ultra rápido y optimizado para móvil',
+      'Personalización de colores, logo y dominio propio',
+      'Upselling automático de combos y bebidas',
+    ],
+    blueprintSteps: [
+      { step: '1. Selección inteligente', detail: 'Sugiere bebida y postre según el plato elegido', badge: '+18% ticket' },
+      { step: '2. Pago en 1 toque', detail: 'Tarjetas, Yape/Plin, Mercado Pago o efectivo', badge: '12 seg prom.' },
+      { step: '3. Liquidación directa', detail: 'Directo a tu cuenta · Solo tarifa Mercado Pago (3.49% + S/ 1)', badge: '3.49% MP' },
+    ],
+  },
+  {
+    id: 'kds-multicanal',
+    tag: 'CENTRALIZADO',
+    title: 'Gestor Multicanal (KDS)',
+    description:
+      'Unifica todos tus canales en una única pantalla de cocina: Rappi, PedidosYa, WhatsApp y tu tienda online marchan en el mismo flujo de producción.',
+    metric: '-9 min por orden',
+    bullets: [
+      'Pantalla KDS táctil organizada por tiempos de cocción',
+      'Comandas impresas automáticamente por estación',
+      'Sincronización instantánea de stock de menú',
+    ],
+    blueprintSteps: [
+      { step: '1. Ingesta unificada', detail: 'Rappi, PedidosYa y Web entran sin re-digitar en caja', badge: '0 errores' },
+      { step: '2. Ruteo por partida', detail: 'Fritura, plancha y barra fría reciben su parte exacta', badge: 'Simultáneo' },
+      { step: '3. Alerta de demora', detail: 'Semáforo visual automático si un ticket supera 12 min', badge: 'SLA 99.4%' },
+    ],
+  },
+  {
+    id: 'logistica-delivery',
+    tag: 'DESPACHO INTELIGENTE',
+    title: 'Logística y Delivery',
+    description:
+      'Coordina tus propios repartidores o accede a couriers aliados bajo demanda. Mantén al cliente informado en cada segundo del trayecto.',
+    metric: '-82% reclamos',
+    bullets: [
+      'Tracking en vivo en mapa con enlace vía WhatsApp',
+      'Ruteo inteligente para minimizar tiempos de entrega',
+      'Métricas exactas de tiempos de preparación y viaje',
+    ],
+    blueprintSteps: [
+      { step: '1. Asignación automática', detail: 'Prioriza motorizados propios; si hay pico, llama flota externa', badge: 'Óptimo' },
+      { step: '2. Agrupación por zona', detail: 'Combina hasta 3 pedidos cercanos en una sola salida', badge: '-34% costo km' },
+      { step: '3. Enlace vivo WhatsApp', detail: 'El comensal ve al repartidor en el mapa sin bajar app', badge: '4.9★' },
+    ],
+  },
+  {
+    id: 'fidelizacion-crm',
+    tag: 'RETENCIÓN +30%',
+    title: 'Fidelización y Base de Clientes',
+    description:
+      'Los clientes que te piden en apps no son tuyos. Con Nexofood construyes tu propia base de datos para volver a venderles con promociones personalizadas.',
+    metric: '+35% recompra mensual',
+    bullets: [
+      'Base de datos de comensales 100% propia',
+      'Campañas automatizadas por WhatsApp y correo',
+      'Sistema de puntos y recompensas recurrentes',
+    ],
+    blueprintSteps: [
+      { step: '1. Captura automática', detail: 'Cada pedido guarda nombre, plato favorito y frecuencia', badge: '100% tuyo' },
+      { step: '2. Reactivación 14 días', detail: 'Envía cupón por WhatsApp si un cliente habitual no vuelve', badge: '24% conv.' },
+      { step: '3. Cashback directo', detail: 'Puntos canjeables solo en tu tienda directa para blindar margen', badge: 'LTV 2.6×' },
+    ],
+  },
+];
+---
+
+<section id="productos" class="w-full bg-surface text-on-surface border-b border-border-subtle py-16 sm:py-24 lg:py-28">
+  <Container>
+    {/* Header */}
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-10 sm:pb-14 border-b border-outline-variant/60">
+      <h2 data-split="capabilities" class="type-h2 font-bold text-on-surface max-w-[44rem]">
+        Todo lo que tu restaurante necesita para escalar bajo un mismo sistema.
+      </h2>
+      <p class="text-sm sm:text-base text-on-surface-variant max-w-[26rem] leading-relaxed">
+        Haz clic en cualquier módulo para inspeccionar su flujo operativo completo en tiempo real.
+      </p>
+    </div>
+
+    {/* Eloqwnt Full-Width Interactive Service Rows (.grid-standart-services) */}
+    <div class="flex flex-col divide-y divide-outline-variant/60 border-b border-outline-variant/60">
+      {CAPABILITIES.map((cap, idx) => (
+        <div
+          class="eloq-service-row"
+          data-service-row
+          data-open={idx === 0 ? 'true' : 'false'}
+        >
+          <div class="eloq-service-bg" aria-hidden="true"></div>
+
+          <button
+            type="button"
+            data-service-toggle
+            aria-expanded={idx === 0 ? 'true' : 'false'}
+            class="w-full py-6 sm:py-8 px-2 sm:px-4 grid grid-cols-1 md:grid-cols-[12rem_1fr_auto] items-center gap-3 md:gap-8 text-left cursor-pointer"
+          >
+            <span class="font-mono text-xs font-bold uppercase tracking-wider text-secondary">
+              {cap.tag}
+            </span>
+
+            <div class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 min-w-0">
+              <h3 class="type-h3 font-bold text-on-surface">
+                {cap.title}
+              </h3>
+              <span class="font-mono text-xs font-semibold text-primary tabular-nums">
+                {cap.metric}
+              </span>
+            </div>
+
+            <span class="eloq-service-arrow-wrap text-on-surface hidden md:inline-flex" aria-hidden="true">
+              <Icon name="arrow_right" size={20} />
+              <Icon name="arrow_right" size={20} />
+            </span>
+          </button>
+
+          {/* Expandable Operational Blueprint Panel */}
+          <div class="eloq-acc-panel">
+            <div class="eloq-acc-inner">
+              <div class="px-2 sm:px-4 pb-8 pt-2 grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-8 items-start">
+                <div class="flex flex-col gap-4">
+                  <p class="text-sm sm:text-base text-on-surface-variant leading-relaxed max-w-[46ch]">
+                    {cap.description}
+                  </p>
+                  <ul class="flex flex-col gap-2.5 pt-2">
+                    {cap.bullets.map((b) => (
+                      <li class="flex items-start gap-2.5 text-sm font-medium text-on-surface">
+                        <Icon name="check_circle" size={18} class="text-primary mt-0.5" />
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* 3-Step Execution Flow Table (Hairlines, no nested cards) */}
+                <div class="rounded-2xl bg-inverse-surface text-inverse-on-surface p-5 border border-white/10 divide-y divide-white/10">
+                  {cap.blueprintSteps.map((s) => (
+                    <div class="py-3 first:pt-0 last:pb-0 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <div>
+                        <div class="text-sm font-bold text-white">{s.step}</div>
+                        <div class="text-xs text-[#b4c8bc] mt-0.5">{s.detail}</div>
+                      </div>
+                      <span class="self-start sm:self-center font-mono text-xs font-bold px-2.5 py-1 rounded-full bg-primary/35 text-primary-fixed tabular-nums shrink-0">
+                        {s.badge}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Container>
+</section>
+
+<script>
+  import { ensureGsapRegistered } from '../scripts/gsap-setup';
+
+  function initCapabilitiesMatrix() {
+    const { gsap, ScrollTrigger } = ensureGsapRegistered();
+
+    const rows = document.querySelectorAll<HTMLElement>('[data-service-row]');
+    const listeners: Array<{ btn: HTMLButtonElement; fn: () => void }> = [];
+
+    rows.forEach((row) => {
+      const btn = row.querySelector<HTMLButtonElement>('[data-service-toggle]');
+      if (!btn) return;
+      const fn = () => {
+        const isOpen = row.getAttribute('data-open') === 'true';
+        rows.forEach((other) => {
+          other.setAttribute('data-open', 'false');
+          other.querySelector('[data-service-toggle]')?.setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          row.setAttribute('data-open', 'true');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+        window.setTimeout(() => ScrollTrigger.refresh(), 380);
+      };
+      btn.addEventListener('click', fn);
+      listeners.push({ btn, fn });
+    });
+
+    const mm = gsap.matchMedia();
+    mm.add(
+      {
+        canAnimate: '(prefers-reduced-motion: no-preference)',
+      },
+      (context) => {
+        if (!context.conditions?.canAnimate) return;
+        ScrollTrigger.batch('[data-service-row]', {
+          start: 'top 92%',
+          once: true,
+          onEnter: (batch) => {
+            gsap.fromTo(
+              batch,
+              { y: 18 },
+              {
+                y: 0,
+                duration: 0.55,
+                stagger: 0.07,
+                ease: 'power2.out',
+                clearProps: 'transform',
+              }
+            );
+          },
+        });
+      }
+    );
+
+    return () => {
+      mm.revert();
+      listeners.forEach(({ btn, fn }) => btn.removeEventListener('click', fn));
+    };
+  }
+
+  let cleanupCaps: (() => void) | undefined;
+  const mount = () => {
+    cleanupCaps?.();
+    cleanupCaps = initCapabilitiesMatrix();
+  };
+  mount();
+  document.addEventListener('astro:page-load', mount);
+</script>

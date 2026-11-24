@@ -1,0 +1,183 @@
+---
+import Container from './ui/Container.astro';
+import Icon from './ui/Icon.astro';
+
+const BRANDS = [
+  { name: 'BurgerKing', category: 'QSR & Drive-Thru' },
+  { name: 'SushiClub', category: 'Dark Kitchens & Salón' },
+  { name: 'ElClubDeLaMilanesa', category: 'Franquicias Multi-local' },
+  { name: 'KFC', category: 'Alto Volumen' },
+  { name: 'Luccianos', category: 'Heladería Artesanal' },
+];
+---
+
+<section
+  id="inicio"
+  class="relative min-h-[100dvh] flex flex-col justify-center bg-inverse-surface text-inverse-on-surface pt-28 sm:pt-32 pb-16 sm:pb-20 overflow-hidden"
+>
+  {/* Preserved Architectural Dark Background Field */}
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <div
+      class="absolute inset-0 bg-[radial-gradient(ellipse_75%_55%_at_50%_18%,rgba(0,108,73,0.34),transparent_65%),radial-gradient(ellipse_55%_45%_at_80%_78%,rgba(254,106,52,0.14),transparent_65%)]"
+    ></div>
+    <div
+      class="absolute inset-0 opacity-[0.045] bg-[linear-gradient(to_right,#ebf3eb_1px,transparent_1px),linear-gradient(to_bottom,#ebf3eb_1px,transparent_1px)] bg-[size:4rem_4rem]"
+    ></div>
+  </div>
+
+  <Container class="relative z-10 flex flex-col items-center text-center">
+    {/* Centered Headline + Subheadline + Primary CTA */}
+    <div class="max-w-[54rem] mx-auto flex flex-col items-center gap-6 sm:gap-7">
+      <h1
+        data-split="hero"
+        class="type-display font-bold text-white"
+      >
+        Tu negocio gastronómico va a{' '}
+        <span class="font-editorial italic font-normal text-primary-fixed">
+          vender más,
+        </span>{' '}
+        en más lugares y sin comisiones abusivas.
+      </h1>
+
+      <p
+        data-hero-fade
+        class="text-base sm:text-lg text-[#c7dcd0] max-w-[38rem] leading-relaxed"
+      >
+        Crea tu tienda online propia con pagos vía Mercado Pago desde 3.49%, sincroniza comandas de Rappi, PedidosYa y WhatsApp en una sola pantalla de cocina, y quédate con el 100% de los datos de tus comensales.
+      </p>
+
+      <div data-hero-fade class="pt-2">
+        <a
+          href="/#comienza-gratis"
+          class="eloq-btn min-h-[52px] px-7 sm:px-8 py-3.5 bg-secondary-container text-on-secondary text-sm sm:text-base font-bold shadow-cta"
+        >
+          <span class="eloq-btn-curtain bg-primary"></span>
+          <span>Comenzar Prueba Gratuita</span>
+          <span class="eloq-btn-arrows" aria-hidden="true">
+            <Icon name="arrow_right" size={18} />
+            <Icon name="arrow_right" size={18} />
+          </span>
+        </a>
+      </div>
+    </div>
+
+    {/* Partner Brands Infinite Marquee with Smooth Edge Fade-In / Fade-Out */}
+    <div data-hero-fade class="w-full max-w-[56rem] mx-auto mt-14 sm:mt-20 flex flex-col items-center gap-5">
+      <div class="flex items-center justify-center gap-3">
+        <p class="text-xs sm:text-sm font-medium text-[#b4c8bc]">
+          Operando en cocinas líderes de Latinoamérica:
+        </p>
+        <button
+          type="button"
+          id="hero-marquee-toggle"
+          class="min-h-[30px] px-2.5 py-1 rounded-full border border-white/15 text-[11px] font-semibold text-[#b4c8bc] hover:text-white hover:bg-white/10 inline-flex items-center gap-1 cursor-pointer transition-colors"
+        >
+          <span id="hero-marquee-icon-pause" class="inline-flex">
+            <Icon name="pause" size={12} />
+          </span>
+          <span id="hero-marquee-icon-play" class="hidden">
+            <Icon name="play" size={12} />
+          </span>
+          <span id="hero-marquee-label">Pausar</span>
+        </button>
+      </div>
+
+      <div class="w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent_0%,black_18%,black_82%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_18%,black_82%,transparent_100%)]">
+        <div class="eloq-marquee-track items-center" id="hero-marquee-track" data-paused="false">
+          {[...BRANDS, ...BRANDS, ...BRANDS, ...BRANDS].map((brand) => (
+            <div class="px-7 sm:px-9 py-2 inline-flex items-baseline gap-2 select-none shrink-0">
+              <span class="text-lg sm:text-xl font-extrabold text-white/90 tracking-tight whitespace-nowrap">
+                {brand.name}
+              </span>
+              <span class="text-xs font-medium text-[#9cb2a5] whitespace-nowrap">
+                · {brand.category}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>
+
+<script>
+  import { ensureGsapRegistered } from '../scripts/gsap-setup';
+
+  function initHeroStage() {
+    const { gsap, SplitText } = ensureGsapRegistered();
+
+    // WCAG 2.2.2 Pause/Resume Toggle on Brand Marquee
+    const marqueeTrack = document.getElementById('hero-marquee-track');
+    const marqueeBtn = document.getElementById('hero-marquee-toggle');
+    const marqueeLabel = document.getElementById('hero-marquee-label');
+    const pauseIcon = document.getElementById('hero-marquee-icon-pause');
+    const playIcon = document.getElementById('hero-marquee-icon-play');
+
+    const onMarqueeToggle = () => {
+      if (!marqueeTrack || !marqueeLabel) return;
+      const isPaused = marqueeTrack.getAttribute('data-paused') === 'true';
+      const next = !isPaused;
+      marqueeTrack.setAttribute('data-paused', String(next));
+      marqueeLabel.textContent = next ? 'Reanudar' : 'Pausar';
+      pauseIcon?.classList.toggle('hidden', next);
+      pauseIcon?.classList.toggle('inline-flex', !next);
+      playIcon?.classList.toggle('hidden', !next);
+      playIcon?.classList.toggle('inline-flex', next);
+    };
+    marqueeBtn?.addEventListener('click', onMarqueeToggle);
+
+    // GSAP SplitText + Centered Hero Entrance (Respecting prefers-reduced-motion)
+    const mm = gsap.matchMedia();
+    mm.add(
+      {
+        canAnimate: '(prefers-reduced-motion: no-preference)',
+      },
+      (context) => {
+        if (!context.conditions?.canAnimate) return;
+
+        const split = SplitText.create('[data-split="hero"]', {
+          type: 'lines,words',
+          mask: 'lines',
+          autoSplit: true,
+          onSplit(self) {
+            return gsap.from(self.lines, {
+              yPercent: 110,
+              autoAlpha: 0,
+              duration: 0.85,
+              stagger: 0.1,
+              ease: 'power4.out',
+              clearProps: 'transform,opacity,visibility',
+            });
+          },
+        });
+
+        gsap.from('[data-hero-fade]', {
+          y: 20,
+          autoAlpha: 0,
+          duration: 0.65,
+          delay: 0.2,
+          stagger: 0.09,
+          ease: 'power3.out',
+          clearProps: 'transform,opacity,visibility',
+        });
+
+        return () => {
+          split?.revert();
+        };
+      }
+    );
+
+    return () => {
+      mm.revert();
+      marqueeBtn?.removeEventListener('click', onMarqueeToggle);
+    };
+  }
+
+  let cleanupHero: (() => void) | undefined;
+  const mount = () => {
+    cleanupHero?.();
+    cleanupHero = initHeroStage();
+  };
+  mount();
+  document.addEventListener('astro:page-load', mount);
+</script>

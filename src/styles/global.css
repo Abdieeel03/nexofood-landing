@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand & Core Colors */
+  /* Brand & Core Colors (Strictly Preserved Palette) */
   --color-primary: #006c49;
   --color-on-primary: #ffffff;
   --color-primary-container: #10b981;
@@ -48,15 +48,15 @@
   --color-on-surface: #161d19;
   --color-on-surface-variant: #3c4a42;
 
-  /* Inverse Surface (Deep Navy / Charcoal) */
-  --color-inverse-surface: #161f1a;
-  --color-inverse-surface-dark: #0f172a;
+  /* Inverse Surface (Deep Emerald Charcoal) */
+  --color-inverse-surface: #111915;
+  --color-inverse-surface-dark: #0b110e;
   --color-inverse-on-surface: #ebf3eb;
 
   /* Outlines & Borders */
-  --color-outline: #6c7a71;
+  --color-outline: #5d6b62;
   --color-outline-variant: #bbcabf;
-  --color-border-subtle: rgba(187, 202, 191, 0.4);
+  --color-border-subtle: rgba(22, 29, 25, 0.08);
   --color-surface-tint: #006c49;
 
   /* Feedback & Error */
@@ -69,84 +69,87 @@
   /* App Theme Tokens */
   --color-surface-card: #ffffff;
   --color-surface-base: #f4fbf4;
-  --color-subtle-slate: #64748b;
+  --color-subtle-slate: #526358;
   --color-mint-subtle: #e6f4ea;
   --color-mint-deep: #006c49;
   --color-tangerine-subtle: #fff0eb;
 
-  /* Typography / Fonts */
-  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* Editorial + Architectural Typography */
+  --font-sans: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-editorial: "Instrument Serif", Georgia, Cambria, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-  /* Custom Box Shadows */
-  --shadow-level-1: 0px 1px 3px rgba(15, 23, 42, 0.06);
-  --shadow-level-2: 0px 10px 15px -3px rgba(15, 23, 42, 0.08), 0px 4px 6px -2px rgba(15, 23, 42, 0.04);
-  --shadow-level-3: 0px 20px 25px -5px rgba(15, 23, 42, 0.12), 0px 8px 10px -6px rgba(15, 23, 42, 0.06);
-  --shadow-cta: 0px 12px 24px -4px rgba(254, 106, 52, 0.35);
-
-  /* Custom Animations */
-  --animate-float: floatAnimation 4s ease-in-out infinite;
-  --animate-fade-in-up: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  --animate-pulse-glow: pulseGlow 2s ease-in-out infinite;
-
-  @keyframes floatAnimation {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-12px);
-    }
-  }
-
-  @keyframes pulseGlow {
-    0%, 100% {
-      opacity: 0.2;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.4;
-      transform: scale(1.05);
-    }
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  /* Soft Architectural Elevation */
+  --shadow-level-1:
+    0px 0px 0px 1px rgba(22, 29, 25, 0.07),
+    0px 2px 6px -1px rgba(17, 25, 21, 0.06);
+  --shadow-level-2:
+    0px 0px 0px 1px rgba(22, 29, 25, 0.08),
+    0px 12px 24px -6px rgba(17, 25, 21, 0.1);
+  --shadow-level-3:
+    0px 0px 0px 1px rgba(22, 29, 25, 0.09),
+    0px 24px 48px -12px rgba(11, 17, 14, 0.22);
+  --shadow-cta:
+    0px 2px 6px rgba(171, 53, 0, 0.22),
+    0px 12px 24px -6px rgba(254, 106, 52, 0.34);
 }
 
 :root {
-  /* Additional glassmorphism tokens */
-  --glass-bg: rgba(255, 255, 255, 0.82);
-  --glass-border: rgba(255, 255, 255, 0.4);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --hairline-light: rgba(22, 29, 25, 0.11);
+  --hairline-dark: rgba(235, 243, 235, 0.13);
 }
 
 html {
-  scroll-behavior: smooth;
   color-scheme: light;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  caret-color: var(--color-primary-container);
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100dvh;
   background-color: var(--color-background);
   color: var(--color-on-background);
   font-family: var(--font-sans);
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
 }
 
+/* Browser Surface Theming */
 ::selection {
-  background-color: var(--color-primary-container);
-  color: var(--color-on-primary-container);
+  background-color: var(--color-primary-fixed);
+  color: var(--color-on-primary-fixed);
 }
 
-/* Custom scrollbar */
+:focus-visible {
+  outline: 2px solid var(--color-primary-container);
+  outline-offset: 3px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+a {
+  text-underline-offset: 0.24em;
+}
+
+p, li, figcaption, blockquote {
+  text-wrap: pretty;
+}
+
+/* Keep SplitText headings free from text-wrap: balance interference */
+[data-split] {
+  text-wrap: initial;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -162,4 +165,356 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-outline);
+}
+
+/* ==========================================================================
+   Fluid Responsive Typography (max <= 2.5x min for WCAG 1.4.4 zoom compliance)
+   ========================================================================== */
+.type-display {
+  font-size: clamp(2.15rem, 1.35rem + 3.2vw, 4.75rem);
+  line-height: 1.03;
+  letter-spacing: -0.035em;
+}
+
+.type-h2 {
+  font-size: clamp(1.75rem, 1.25rem + 2.1vw, 3.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+.type-h3 {
+  font-size: clamp(1.375rem, 1.12rem + 1vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+/* ==========================================================================
+   Eloqwnt-Inspired Architectural Micro-Interactions (Compositor-Safe)
+   ========================================================================== */
+
+/* Animated Underline Sweep (transform scaleX, no width layout thrash) */
+.eloq-link {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.eloq-link-line {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.4s var(--ease-expo);
+}
+
+.eloq-link:hover .eloq-link-line,
+.eloq-link:focus-visible .eloq-link-line {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+/* Eloqwnt Curtain-Fill Pill Button */
+.eloq-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  overflow: hidden;
+  border-radius: 9999px;
+  isolation: isolate;
+  cursor: pointer;
+  transition:
+    transform 0.25s var(--ease-expo),
+    color 0.3s var(--ease-expo),
+    box-shadow 0.3s var(--ease-expo);
+}
+
+.eloq-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.eloq-btn-curtain {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transform: scaleY(0);
+  transform-origin: bottom center;
+  transition: transform 0.42s var(--ease-expo);
+}
+
+.eloq-btn:hover .eloq-btn-curtain,
+.eloq-btn:focus-visible .eloq-btn-curtain {
+  transform: scaleY(1);
+}
+
+.eloq-btn-arrows {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.125rem;
+  height: 1.125rem;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.eloq-btn-arrows svg {
+  position: absolute;
+  transition: transform 0.38s var(--ease-expo);
+}
+
+.eloq-btn-arrows svg:first-child {
+  transform: translate(0, 0);
+}
+
+.eloq-btn-arrows svg:last-child {
+  transform: translate(-130%, 0);
+}
+
+.eloq-btn:hover .eloq-btn-arrows svg:first-child,
+.eloq-btn:focus-visible .eloq-btn-arrows svg:first-child {
+  transform: translate(130%, 0);
+}
+
+.eloq-btn:hover .eloq-btn-arrows svg:last-child,
+.eloq-btn:focus-visible .eloq-btn-arrows svg:last-child {
+  transform: translate(0, 0);
+}
+
+/* Eloqwnt Service Row Curtain + Arrow Slide (Compositor-Only) */
+.eloq-service-row {
+  position: relative;
+  isolation: isolate;
+}
+
+.eloq-service-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--color-surface-container-low);
+  transform: scaleY(0);
+  transform-origin: bottom center;
+  transition: transform 0.45s var(--ease-expo);
+}
+
+.eloq-service-row:hover .eloq-service-bg,
+.eloq-service-row[data-open="true"] .eloq-service-bg {
+  transform: scaleY(1);
+}
+
+.eloq-service-arrow-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 1.5rem;
+  height: 1rem;
+  overflow: hidden;
+}
+
+.eloq-service-arrow-wrap svg {
+  position: absolute;
+  transition: transform 0.4s var(--ease-expo);
+}
+
+.eloq-service-arrow-wrap svg:first-child {
+  transform: translateX(0);
+}
+
+.eloq-service-arrow-wrap svg:last-child {
+  transform: translateX(-160%);
+}
+
+.eloq-service-row:hover .eloq-service-arrow-wrap svg:first-child {
+  transform: translateX(160%);
+}
+
+.eloq-service-row:hover .eloq-service-arrow-wrap svg:last-child {
+  transform: translateX(0);
+}
+
+/* Accordion Grid Row Expand */
+.eloq-acc-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.36s var(--ease-expo);
+}
+
+[data-open="true"] .eloq-acc-panel {
+  grid-template-rows: 1fr;
+}
+
+.eloq-acc-inner {
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.28s ease-out;
+}
+
+[data-open="true"] .eloq-acc-inner {
+  opacity: 1;
+}
+
+/* Hero Infinity Marquee (CSS-driven for zero main-thread loop overhead + Pause support) */
+.eloq-marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .eloq-marquee-track {
+    animation: eloqMarquee 32s linear infinite;
+  }
+  .eloq-marquee-track[data-paused="true"] {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes eloqMarquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Spinning Price Counter */
+.eloq-reel {
+  --reel-cell: 3.1rem;
+  display: inline-flex;
+  align-items: center;
+  height: var(--reel-cell);
+  font-variant-numeric: tabular-nums;
+}
+
+.eloq-reel-col {
+  position: relative;
+  height: var(--reel-cell);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+}
+
+.eloq-reel-strip {
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+}
+
+.eloq-reel-digit {
+  height: var(--reel-cell);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* Sliding Segmented Tabs */
+.eloq-tabs {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border-radius: 9999px;
+  background-color: var(--color-surface-container-high);
+  border: 1px solid var(--hairline-light);
+}
+
+.eloq-tabs-pill {
+  position: absolute;
+  top: 0.25rem;
+  left: 0;
+  height: calc(100% - 0.5rem);
+  width: 0;
+  border-radius: 9999px;
+  background-color: var(--color-surface-container-lowest);
+  box-shadow: var(--shadow-level-1);
+  transition:
+    transform 0.32s var(--ease-expo),
+    width 0.32s var(--ease-expo);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.eloq-tab {
+  position: relative;
+  z-index: 1;
+  min-height: 44px;
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-on-surface-variant);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  transition: color 0.22s ease-out;
+}
+
+.eloq-tab[aria-selected="true"],
+.eloq-tab:hover {
+  color: var(--color-on-primary-container);
+}
+
+/* Form Input Error Shake & Toast */
+.eloq-input-shell.is-error {
+  border-color: var(--color-tertiary-container) !important;
+  box-shadow: 0 0 0 3px rgba(252, 124, 120, 0.25) !important;
+}
+
+.eloq-input-shell.is-shaking {
+  animation: eloqShake 280ms var(--ease-expo);
+}
+
+@keyframes eloqShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(6px); }
+  55% { transform: translateX(-6px); }
+  80% { transform: translateX(3px); }
+}
+
+.eloq-toast {
+  opacity: 0;
+  transform: translateY(12px) scale(0.98);
+  pointer-events: none;
+  transition:
+    opacity 0.28s var(--ease-expo),
+    transform 0.28s var(--ease-expo);
+}
+
+.eloq-toast.is-open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* Off-screen rendering containment on safe static sections */
+.cv-auto-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 680px;
+}
+
+/* Reduced Motion Guard (Case-by-case, keeping final visible states intact) */
+@media (prefers-reduced-motion: reduce) {
+  .eloq-link-line,
+  .eloq-btn-curtain,
+  .eloq-btn-arrows svg,
+  .eloq-service-bg,
+  .eloq-service-arrow-wrap svg,
+  .eloq-acc-panel,
+  .eloq-acc-inner,
+  .eloq-tabs-pill,
+  .eloq-reel-strip,
+  .eloq-toast {
+    transition: none !important;
+  }
+  .eloq-input-shell.is-shaking {
+    animation: none !important;
+  }
 }

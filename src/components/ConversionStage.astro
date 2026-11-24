@@ -1,0 +1,255 @@
+---
+import Container from './ui/Container.astro';
+import Icon from './ui/Icon.astro';
+
+const MODULES = [
+  'Tienda Online Propia',
+  'KDS Cocina',
+  'Logística GPS',
+  'Fidelización CRM',
+  'Multi-sucursal',
+];
+
+const SCALES = ['1 local', '2–5 locales', '6–20 locales', '20+ franquicias'];
+---
+
+<section
+  id="comienza-gratis"
+  class="cv-auto-section w-full bg-inverse-surface text-inverse-on-surface py-16 sm:py-24 lg:py-28 border-b border-white/10"
+>
+  <Container>
+    <div class="grid grid-cols-1 lg:grid-cols-[0.88fr_1.12fr] gap-12 lg:gap-16 items-start">
+      {/* Left: Editorial Anchor */}
+      <div class="flex flex-col justify-between gap-8 lg:sticky lg:top-28">
+        <div class="flex flex-col gap-5">
+          <h2 class="type-display font-bold text-white">
+            Lleva tu restaurante al{' '}
+            <span class="font-editorial italic font-normal text-primary-fixed">
+              siguiente nivel
+            </span>{' '}
+            hoy mismo.
+          </h2>
+          <p class="text-base sm:text-lg text-[#c7dcd0] max-w-[34rem] leading-relaxed">
+            Únete a miles de negocios que ya optimizaron sus operaciones de cocina y
+            recuperaron sus márgenes de ganancia con Nexofood.
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-3 pt-6 border-t border-white/12 text-sm text-[#c7dcd0]">
+          <div class="inline-flex items-center gap-2.5">
+            <Icon name="check_circle" size={18} class="text-primary-fixed" />
+            <span>Migración de carta sin costo en menos de 15 minutos</span>
+          </div>
+          <div class="inline-flex items-center gap-2.5">
+            <Icon name="check_circle" size={18} class="text-primary-fixed" />
+            <span>Soporte gastronómico especializado 24/7</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Right: Eloqwnt Interactive Assessment Form */}
+      <div class="rounded-2xl bg-[#0b110e] border border-white/12 p-6 sm:p-9">
+        <form id="nexofood-assessment-form" class="flex flex-col gap-7" novalidate>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div class="flex flex-col gap-2">
+              <label for="cta-restaurant" class="text-xs font-semibold text-[#b4c8bc] uppercase tracking-wider">
+                Nombre de tu restaurante
+              </label>
+              <input
+                id="cta-restaurant"
+                name="restaurant"
+                type="text"
+                required
+                placeholder="Ej. Burger Republic"
+                class="min-h-[46px] px-4 rounded-xl bg-white/[0.05] border border-white/15 text-white text-base placeholder:text-[#7f968a] focus:border-primary-fixed outline-none transition-colors"
+              />
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label for="cta-email" class="text-xs font-semibold text-[#b4c8bc] uppercase tracking-wider">
+                Correo corporativo
+              </label>
+              <input
+                id="cta-email"
+                name="email"
+                type="email"
+                required
+                placeholder="gerencia@turestaurante.com"
+                class="min-h-[46px] px-4 rounded-xl bg-white/[0.05] border border-white/15 text-white text-base placeholder:text-[#7f968a] focus:border-primary-fixed outline-none transition-colors"
+              />
+            </div>
+          </div>
+
+          {/* Multi-select Interest Pills */}
+          <div class="flex flex-col gap-3">
+            <span class="text-xs font-semibold text-[#b4c8bc] uppercase tracking-wider">
+              Me interesa implementar...
+            </span>
+            <div class="flex flex-wrap gap-2.5" role="group" aria-label="Módulos de interés">
+              {MODULES.map((mod, idx) => (
+                <button
+                  type="button"
+                  data-pill-multi
+                  aria-pressed={idx === 0 ? 'true' : 'false'}
+                  class={`min-h-[40px] px-4 py-2 rounded-full text-xs sm:text-sm font-semibold border transition-colors cursor-pointer ${
+                    idx === 0
+                      ? 'bg-primary-fixed text-on-primary-fixed border-primary-fixed'
+                      : 'bg-transparent text-[#c7dcd0] border-white/20 hover:border-white/45'
+                  }`}
+                >
+                  {mod}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Single-select Scale Pills */}
+          <div class="flex flex-col gap-3">
+            <span class="text-xs font-semibold text-[#b4c8bc] uppercase tracking-wider">
+              Tamaño actual de tu operación
+            </span>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" role="radiogroup" aria-label="Cantidad de locales">
+              {SCALES.map((scale, idx) => (
+                <button
+                  type="button"
+                  role="radio"
+                  data-pill-single
+                  aria-checked={idx === 0 ? 'true' : 'false'}
+                  class={`min-h-[42px] px-3 py-2 rounded-full text-xs sm:text-sm font-semibold border transition-colors cursor-pointer ${
+                    idx === 0
+                      ? 'bg-secondary-container text-on-secondary border-secondary-container'
+                      : 'bg-transparent text-[#c7dcd0] border-white/20 hover:border-white/45'
+                  }`}
+                >
+                  {scale}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div id="cta-form-error" role="alert" class="hidden text-xs font-semibold text-tertiary-fixed">
+            Por favor ingresa el nombre de tu restaurante y un correo válido.
+          </div>
+
+          <button
+            type="submit"
+            class="eloq-btn w-full min-h-[52px] px-7 py-3.5 bg-secondary-container text-on-secondary text-base font-bold shadow-cta"
+          >
+            <span class="eloq-btn-curtain bg-primary"></span>
+            <span>Comenzar Prueba Gratuita</span>
+            <span class="eloq-btn-arrows" aria-hidden="true">
+              <Icon name="arrow_right" size={18} />
+              <Icon name="arrow_right" size={18} />
+            </span>
+          </button>
+        </form>
+
+        {/* Success State */}
+        <div id="cta-form-success" class="hidden flex-col gap-4 py-6" role="status" aria-live="polite">
+          <div class="w-12 h-12 rounded-full bg-primary/35 text-primary-fixed flex items-center justify-center">
+            <Icon name="check" size={24} />
+          </div>
+          <h3 class="type-h3 font-bold text-white">
+            Entorno de prueba reservado.
+          </h3>
+          <p class="text-sm sm:text-base text-[#c7dcd0] leading-relaxed">
+            Nuestro equipo de implementación gastronómica enviará el acceso a tu panel en minutos para activar tus 14 días sin costo y lanzar tu carta con pagos vía Mercado Pago desde 3.49%.
+          </p>
+          <button
+            type="button"
+            id="cta-form-reset"
+            class="w-fit text-xs font-semibold text-primary-fixed hover:underline cursor-pointer"
+          >
+            Registrar otro local
+          </button>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>
+
+<script>
+  function initConversionStage() {
+    const form = document.getElementById('nexofood-assessment-form') as HTMLFormElement | null;
+    const successBox = document.getElementById('cta-form-success');
+    const errorBox = document.getElementById('cta-form-error');
+    const resetBtn = document.getElementById('cta-form-reset');
+
+    if (!form) return;
+
+    const multiBtns = form.querySelectorAll<HTMLButtonElement>('[data-pill-multi]');
+    const singleBtns = form.querySelectorAll<HTMLButtonElement>('[data-pill-single]');
+
+    const onMulti = (e: Event) => {
+      const btn = e.currentTarget as HTMLButtonElement;
+      const active = btn.getAttribute('aria-pressed') === 'true';
+      const next = !active;
+      btn.setAttribute('aria-pressed', String(next));
+      btn.classList.toggle('bg-primary-fixed', next);
+      btn.classList.toggle('text-on-primary-fixed', next);
+      btn.classList.toggle('border-primary-fixed', next);
+      btn.classList.toggle('bg-transparent', !next);
+      btn.classList.toggle('text-[#c7dcd0]', !next);
+      btn.classList.toggle('border-white/20', !next);
+    };
+
+    const onSingle = (e: Event) => {
+      const btn = e.currentTarget as HTMLButtonElement;
+      singleBtns.forEach((b) => {
+        const isCurrent = b === btn;
+        b.setAttribute('aria-checked', String(isCurrent));
+        b.classList.toggle('bg-secondary-container', isCurrent);
+        b.classList.toggle('text-on-secondary', isCurrent);
+        b.classList.toggle('border-secondary-container', isCurrent);
+        b.classList.toggle('bg-transparent', !isCurrent);
+        b.classList.toggle('text-[#c7dcd0]', !isCurrent);
+        b.classList.toggle('border-white/20', !isCurrent);
+      });
+    };
+
+    const onSubmit = (e: Event) => {
+      e.preventDefault();
+      const restaurantInput = form.querySelector<HTMLInputElement>('#cta-restaurant');
+      const emailInput = form.querySelector<HTMLInputElement>('#cta-email');
+      const nameOk = (restaurantInput?.value.trim().length || 0) >= 2;
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(emailInput?.value.trim() || '');
+
+      if (!nameOk || !emailOk) {
+        errorBox?.classList.remove('hidden');
+        return;
+      }
+
+      errorBox?.classList.add('hidden');
+      form.classList.add('hidden');
+      successBox?.classList.remove('hidden');
+      successBox?.classList.add('flex');
+    };
+
+    const onReset = () => {
+      form.reset();
+      successBox?.classList.add('hidden');
+      successBox?.classList.remove('flex');
+      form.classList.remove('hidden');
+    };
+
+    multiBtns.forEach((b) => b.addEventListener('click', onMulti));
+    singleBtns.forEach((b) => b.addEventListener('click', onSingle));
+    form.addEventListener('submit', onSubmit);
+    resetBtn?.addEventListener('click', onReset);
+
+    return () => {
+      multiBtns.forEach((b) => b.removeEventListener('click', onMulti));
+      singleBtns.forEach((b) => b.removeEventListener('click', onSingle));
+      form.removeEventListener('submit', onSubmit);
+      resetBtn?.removeEventListener('click', onReset);
+    };
+  }
+
+  let cleanupStage: (() => void) | undefined;
+  const mount = () => {
+    cleanupStage?.();
+    cleanupStage = initConversionStage();
+  };
+  mount();
+  document.addEventListener('astro:page-load', mount);
+</script>
