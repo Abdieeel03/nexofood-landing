@@ -9,17 +9,19 @@ import Icon from './ui/Icon.astro';
 >
   <Container>
     <div class="flex items-center justify-between gap-2 lg:grid lg:grid-cols-[auto_1fr_auto] lg:gap-4 min-h-[68px] sm:min-h-[76px]">
-      {/* Brand Mark: Bespoke Architectural Monogram */}
+      {/* Brand Mark: Official NexoFood Logo */}
       <a
         href="/#inicio"
-        class="inline-flex items-center gap-2 min-h-[44px] text-base sm:text-xl font-bold tracking-tight text-current shrink-0"
+        class="inline-flex items-center gap-2.5 min-h-[44px] text-base sm:text-xl font-bold tracking-tight text-current shrink-0"
       >
-        <svg width="26" height="26" viewBox="0 0 28 28" fill="none" aria-hidden="true" class="shrink-0 sm:w-7 sm:h-7">
-          <rect width="28" height="28" rx="7" fill="#006c49" />
-          <path d="M8.5 19.5V8.5L19.5 19.5V8.5" stroke="#6ffbbe" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
-          <circle cx="19.5" cy="8.5" r="2" fill="#fe6a34" />
-        </svg>
-        <span>Nexofood</span>
+        <img
+          src="/images/nexofood-logo.png"
+          alt="Logo de NexoFood"
+          width="32"
+          height="32"
+          class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg object-cover shrink-0 ring-1 ring-white/15 shadow-sm"
+        />
+        <span>NexoFood</span>
       </a>
 
       {/* Desktop Architectural Navigation with Eloqwnt .eloq-link sweeps */}
@@ -28,8 +30,8 @@ import Icon from './ui/Icon.astro';
           <span>Impacto</span>
           <span class="eloq-link-line"></span>
         </a>
-        <a href="/#casos-de-exito" class="eloq-link py-2 text-sm font-medium text-current/85 hover:text-current transition-colors">
-          <span>Cocinas Reales</span>
+        <a href="/#beneficios" class="eloq-link py-2 text-sm font-medium text-current/85 hover:text-current transition-colors">
+          <span>Beneficios</span>
           <span class="eloq-link-line"></span>
         </a>
         <a href="/#productos" class="eloq-link py-2 text-sm font-medium text-current/85 hover:text-current transition-colors">
@@ -45,7 +47,7 @@ import Icon from './ui/Icon.astro';
       {/* Right Actions: Fullscreen Grid Menu Toggle + Eloqwnt Curtain CTA */}
       <div class="flex items-center justify-end gap-1.5 sm:gap-3 shrink-0">
         <a
-          href="/#comienza-gratis"
+          href="https://nexofood-app.com/register"
           class="eloq-btn whitespace-nowrap min-h-[44px] px-3 sm:px-5 py-2 bg-secondary-container text-on-secondary text-xs sm:text-sm font-bold shadow-[0_2px_10px_rgba(254,106,52,0.28)]"
         >
           <span class="eloq-btn-curtain bg-primary"></span>
@@ -87,7 +89,7 @@ import Icon from './ui/Icon.astro';
         {[
           { href: '/#inicio', label: 'Inicio' },
           { href: '/#por-que', label: 'Brecha de Rentabilidad' },
-          { href: '/#casos-de-exito', label: 'Cocinas Reales' },
+          { href: '/#beneficios', label: 'Beneficios para tu Empresa' },
           { href: '/#productos', label: 'Arquitectura de Módulos' },
           { href: '/#precios', label: 'Planes y Preguntas Frecuentes' },
         ].map((item, idx) => (
@@ -142,7 +144,7 @@ import Icon from './ui/Icon.astro';
     <div class="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-white/12 text-xs text-[#9cb2a5]">
       <span>© 2026 Nexofood Technologies</span>
       <div class="flex items-center gap-6">
-        <a href="/#comienza-gratis" data-menu-item class="text-primary-fixed font-semibold hover:underline">
+        <a href="https://nexofood-app.com/register" data-menu-item class="text-primary-fixed font-semibold hover:underline">
           Solicitar activación gratuita
         </a>
       </div>
