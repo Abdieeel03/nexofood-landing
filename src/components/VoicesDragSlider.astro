@@ -2,38 +2,56 @@
 import Container from './ui/Container.astro';
 import Icon from './ui/Icon.astro';
 
-const VOICES = [
+const ENTREPRENEUR_BENEFITS = [
   {
-    quote:
-      'Antes perdíamos hasta el 28% de cada venta en comisiones de apps. Con la tienda propia de Nexofood pasamos el 45% de nuestras ventas a canal directo y ahorramos más de $2,400 USD mensuales.',
-    author: 'Martín Benítez',
-    role: 'Fundador en Burger Republic · Lima',
-    initials: 'MB',
-    badge: '+$2,400 USD/mes ahorrados',
+    badge: 'Plan Starter S/ 0',
+    tag: '01',
+    title: 'Lanza tu tienda online sin inversión en desarrollo',
+    description:
+      'Empieza a vender por internet en minutos con tu propia carta digital, fotos y dominio sin pagar agencias ni programadores.',
+    highlightTitle: 'Ideal para validar y crecer',
+    highlightSub: 'Activa tu catálogo hoy sin costo fijo mensual',
+    initials: '01',
   },
   {
-    quote:
-      'El KDS en cocina cambió el caos del fin de semana por un despacho ordenado. Cero comandas extraviadas y redujimos el tiempo de preparación promedio de 26 a 17 minutos.',
-    author: 'Camila Restrepo',
-    role: 'Chef Ejecutiva en Takumi Nikkei · Bogotá',
-    initials: 'CR',
-    badge: '26 min → 17 min en cocina',
+    badge: 'Solo 3.49% MP',
+    tag: '02',
+    title: 'Protege tu margen desde el primer pedido',
+    description:
+      'Evita ceder hasta el 28% de cada plato a apps intermediarias. Cobra directo con Mercado Pago y reinvierte esa ganancia en tu negocio.',
+    highlightTitle: 'Liquidez inmediata',
+    highlightSub: 'El dinero de tus ventas ingresa directo a tu cuenta',
+    initials: '02',
   },
   {
-    quote:
-      'El tracking en vivo y los mensajes por WhatsApp hicieron que los clientes dejen de llamar preguntando por su pedido. La fidelización y pedidos recurrentes subieron un 35%.',
-    author: 'Esteban Morales',
-    role: 'Director de Operaciones en Donatello Pizza · Buenos Aires',
-    initials: 'EM',
-    badge: '+35% recompra directa',
+    badge: 'Orden en cocina',
+    tag: '03',
+    title: 'Controla horas pico con un equipo pequeño',
+    description:
+      'Recibe órdenes organizadas en pantalla KDS o impresora térmica para evitar confusiones, comandas traspapeladas y retrasos.',
+    highlightTitle: 'Operación profesional',
+    highlightSub: 'Flujo claro desde que entra el pedido hasta el despacho',
+    initials: '03',
   },
   {
-    quote:
-      'Centralizar 14 locales en un solo panel eliminó los errores de re-digitación en horas pico. Hoy nuestra base de datos de comensales crece cada semana sin pagar por clics repetidos.',
-    author: 'Lucía Fernández',
-    role: 'Gerente de Expansión en Grupo Brasa · Santiago',
-    initials: 'LF',
-    badge: '14 locales sincronizados',
+    badge: '100% tus datos',
+    tag: '04',
+    title: 'Construye tu propia cartera de comensales',
+    description:
+      'Conoce quién te compra, qué platos prefiere y con qué frecuencia pide para fidelizarlo con promociones directas sin pagar por visibilidad.',
+    highlightTitle: 'Clientes recurrentes',
+    highlightSub: 'Convierte compradores ocasionales en habituales',
+    initials: '04',
+  },
+  {
+    badge: 'Escala flexible',
+    tag: '05',
+    title: 'Crece a tu ritmo, sin contratos forzados',
+    description:
+      'Comienza con un solo local y activa pasarela integrada, logística GPS o gestión multi-sucursal conforme tu emprendimiento despegue.',
+    highlightTitle: 'Sin ataduras',
+    highlightSub: 'Cambia de plan o escala cuando tu cocina lo pida',
+    initials: '05',
   },
 ];
 ---
@@ -41,8 +59,8 @@ const VOICES = [
 <section class="w-full bg-surface text-on-surface border-b border-border-subtle py-16 sm:py-24 overflow-hidden">
   <Container>
     <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10 sm:mb-12">
-      <h2 class="type-h2 font-bold text-on-surface max-w-[38rem]">
-        Probado y aprobado en cocinas de alto ritmo.
+      <h2 class="type-h2 font-bold text-on-surface max-w-[40rem]">
+        Diseñado para impulsar a empresas de comida emprendedoras.
       </h2>
       <p class="text-sm text-on-surface-variant font-medium">
         Arrastra horizontalmente o usa los controles
@@ -52,26 +70,33 @@ const VOICES = [
     {/* Eloqwnt Draggable Carousel Track */}
     <div id="voices-viewport" class="relative overflow-hidden">
       <div id="voices-track" class="flex gap-6 w-max cursor-grab active:cursor-grabbing select-none">
-        {VOICES.map((v) => (
+        {ENTREPRENEUR_BENEFITS.map((item) => (
           <figure class="w-[82vw] sm:w-[27rem] lg:w-[30rem] shrink-0 p-7 sm:p-8 rounded-2xl bg-surface-container-lowest border border-outline-variant/55 flex flex-col justify-between gap-8">
             <div class="flex items-center justify-between gap-3">
               <span class="font-mono text-xs font-bold px-3 py-1 rounded-full bg-mint-subtle text-primary tabular-nums">
-                {v.badge}
+                {item.badge}
               </span>
-              <span class="text-xs font-semibold text-on-surface-variant tabular-nums">5.0 ★</span>
+              <span class="font-mono text-xs font-semibold text-on-surface-variant tabular-nums">
+                VENTAJA {item.tag}
+              </span>
             </div>
 
-            <blockquote class="font-editorial italic text-xl sm:text-2xl text-on-surface leading-snug">
-              “{v.quote}”
-            </blockquote>
+            <div class="flex flex-col gap-3">
+              <h3 class="font-editorial italic text-xl sm:text-2xl text-on-surface leading-snug">
+                {item.title}
+              </h3>
+              <p class="text-sm sm:text-base text-on-surface-variant leading-relaxed">
+                {item.description}
+              </p>
+            </div>
 
             <figcaption class="pt-5 border-t border-outline-variant/45 flex items-center gap-3.5">
-              <div class="w-11 h-11 rounded-full bg-primary text-on-primary font-bold text-sm flex items-center justify-center shrink-0">
-                {v.initials}
+              <div class="w-11 h-11 rounded-full bg-primary text-on-primary font-mono font-bold text-sm flex items-center justify-center shrink-0">
+                {item.initials}
               </div>
               <div class="min-w-0">
-                <div class="text-sm font-bold text-on-surface truncate">{v.author}</div>
-                <div class="text-xs text-on-surface-variant truncate">{v.role}</div>
+                <div class="text-sm font-bold text-on-surface truncate">{item.highlightTitle}</div>
+                <div class="text-xs text-on-surface-variant truncate">{item.highlightSub}</div>
               </div>
             </figcaption>
           </figure>
