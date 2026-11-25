@@ -1,45 +1,99 @@
 ---
 interface Props {
   name: string;
-  size?: number | string;
-  color?: string;
-  fill?: boolean;
-  weight?: number;
+  size?: number;
   class?: string;
-  style?: Record<string, string | number>;
 }
 
-const {
-  name,
-  size = 24,
-  color,
-  fill = false,
-  weight = 400,
-  class: className = '',
-  style = {},
-} = Astro.props;
-
-const fontSize = typeof size === 'number' ? `${size}px` : size;
-const fontVariationSettings = `'FILL' ${fill ? 1 : 0}, 'wght' ${weight}`;
-
-const styleString = Object.entries({
-  'font-size': fontSize,
-  'font-variation-settings': fontVariationSettings,
-  color: color || 'currentColor',
-  'line-height': 1,
-  'user-select': 'none',
-  'vertical-align': 'middle',
-  display: 'inline-flex',
-  'align-items': 'center',
-  'justify-content': 'center',
-  ...style,
-})
-  .map(([k, v]) => `${k}: ${v};`)
-  .join(' ');
+const { name, size = 20, class: className = '' } = Astro.props;
 ---
 
-<span
-  class={`material-symbols-outlined ${className}`}
-  style={styleString}
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.65"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class={`shrink-0 ${className}`}
   aria-hidden="true"
->{name}</span>
+>
+  {name === 'arrow_right' && (
+    <>
+      <path d="M4 12h16" />
+      <path d="M14 6l6 6-6 6" />
+    </>
+  )}
+  {name === 'arrow_left' && (
+    <>
+      <path d="M20 12H4" />
+      <path d="M10 18l-6-6 6-6" />
+    </>
+  )}
+  {name === 'arrow_down' && (
+    <>
+      <path d="M12 4v16" />
+      <path d="M6 14l6 6 6-6" />
+    </>
+  )}
+  {name === 'arrow_up_right' && (
+    <>
+      <path d="M7 17L17 7" />
+      <path d="M8 7h9v9" />
+    </>
+  )}
+  {name === 'check' && <path d="M5 13l4 4L19 7" />}
+  {name === 'check_circle' && (
+    <>
+      <circle cx="12" cy="12" r="9.5" />
+      <path d="M8.5 12.5l2.5 2.5 5-5" />
+    </>
+  )}
+  {name === 'plus' && (
+    <>
+      <path d="M12 5v14" />
+      <path d="M5 12h14" />
+    </>
+  )}
+  {name === 'minus' && <path d="M5 12h14" />}
+  {name === 'storefront' && (
+    <>
+      <path d="M3 9l1.5-5h15L21 9" />
+      <path d="M3 9v1a3 3 0 0 0 6 0V9a3 3 0 0 0 6 0V9a3 3 0 0 0 6 0V9" />
+      <path d="M5 12.5V20h14v-7.5" />
+    </>
+  )}
+  {name === 'lock' && (
+    <>
+      <rect x="4" y="11" width="16" height="9" rx="2" />
+      <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+    </>
+  )}
+  {name === 'shield' && (
+    <>
+      <path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z" />
+      <path d="M9 12l2 2 4-4" />
+    </>
+  )}
+  {name === 'mail' && (
+    <>
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="M3 7l9 6 9-6" />
+    </>
+  )}
+  {name === 'link' && (
+    <>
+      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+    </>
+  )}
+  {name === 'pause' && (
+    <>
+      <rect x="6" y="5" width="4" height="14" rx="1" />
+      <rect x="14" y="5" width="4" height="14" rx="1" />
+    </>
+  )}
+  {name === 'play' && <path d="M7 5l12 7-12 7V5z" />}
+</svg>

@@ -1,18 +1,19 @@
 ---
 import Container from './ui/Container.astro';
-import SectionWrapper from './ui/SectionWrapper.astro';
-import Button from './ui/Button.astro';
 import Icon from './ui/Icon.astro';
 
 interface Plan {
   id: string;
   name: string;
-  price: string;
+  monthlyPrice: string;
+  annualPrice: string;
+  isNumeric: boolean;
   period?: string;
+  monthlyNote: string;
+  annualNote: string;
   description: string;
   featured?: boolean;
   buttonText: string;
-  buttonVariant: 'primary' | 'outline';
   features: string[];
 }
 
@@ -20,12 +21,15 @@ const PLANS: Plan[] = [
   {
     id: 'starter',
     name: 'Starter',
-    price: '$0',
+    monthlyPrice: '0',
+    annualPrice: '0',
+    isNumeric: true,
     period: '/mes',
+    monthlyNote: 'Gratis para siempre · Solo tarifa Mercado Pago (3.49%)',
+    annualNote: 'Gratis para siempre · Solo tarifa Mercado Pago (3.49%)',
     description:
       'Para emprendedores gastronómicos que dan sus primeros pasos online.',
     buttonText: 'Comenzar Gratis',
-    buttonVariant: 'outline',
     features: [
       '1 local gastronómico',
       'Tienda online web y móvil',
@@ -37,13 +41,16 @@ const PLANS: Plan[] = [
   {
     id: 'pro',
     name: 'Profesional',
-    price: '$49',
+    monthlyPrice: '49',
+    annualPrice: '39',
+    isNumeric: true,
     period: '/mes',
+    monthlyNote: 'Facturado mes a mes sin ataduras',
+    annualNote: 'Ahorras $120 USD al año en plan anual',
     description:
       'Para restaurantes en crecimiento que necesitan control total de cocina y logística.',
     featured: true,
     buttonText: 'Probar 14 Días Gratis',
-    buttonVariant: 'primary',
     features: [
       'Todo lo de Starter, más:',
       'KDS: Pantalla de comandas en cocina',
@@ -57,12 +64,15 @@ const PLANS: Plan[] = [
   {
     id: 'enterprise',
     name: 'Enterprise',
-    price: 'Custom',
+    monthlyPrice: 'Custom',
+    annualPrice: 'Custom',
+    isNumeric: false,
     period: '',
+    monthlyNote: 'Acuerdo corporativo multi-sucursal',
+    annualNote: 'Acuerdo corporativo multi-sucursal',
     description:
       'Para cadenas, franquicias y dark kitchens con alta demanda operativa.',
     buttonText: 'Contactar a Ventas',
-    buttonVariant: 'outline',
     features: [
       'Locales y marcas ilimitadas',
       'Integración POS con ERPs y hardware propio',
@@ -73,81 +83,381 @@ const PLANS: Plan[] = [
     ],
   },
 ];
+
+const FAQS = [
+  {
+    q: '¿Cuánto cobran de comisión por pedido en mi tienda online?',
+    a: 'Nexofood no cobra comisiones por venta. En pagos en línea solo aplica la tarifa estándar de Mercado Pago (3.49% + S/ 1.00 por transacción), muy por debajo del 25% al 30% que retienen las apps de delivery, y el saldo ingresa directo a tu cuenta.',
+  },
+  {
+    q: '¿Necesito comprar impresoras o pantallas nuevas para usar el KDS en cocina?',
+    a: 'No. Nexofood funciona en cualquier tablet Android, iPad, monitor táctil o PC que ya tengas en el restaurante, y es compatible con impresoras térmicas estándar de 58mm y 80mm por red local o USB.',
+  },
+  {
+    q: '¿Cuánto tiempo toma migrar mi carta y conectar Rappi o PedidosYa?',
+    a: 'Menos de 15 minutos. Nuestro equipo importa tu menú actual con fotos y modificadores sin costo adicional, y autorizas la integración oficial con las plataformas de delivery en tres clics.',
+  },
+];
 ---
 
-<SectionWrapper background="surface" padding="lg" id="precios">
+<section id="precios" class="w-full bg-surface-container-lowest text-on-surface border-b border-border-subtle py-16 sm:py-24 lg:py-28">
   <Container>
-    {/* Header */}
-    <div class="text-center max-w-[47.5rem] mx-auto mb-10 md:mb-14 flex flex-col items-center gap-2.5">
-      <div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-low border border-outline-variant text-primary text-xs font-bold uppercase tracking-wider">
-        <Icon name="payments" size={16} fill={true} />
-        <span>Precios Transparentes</span>
+    {/* Header + Sliding Billing Switcher */}
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-10 sm:pb-14">
+      <div class="max-w-[38rem]">
+        <h2 data-split="pricing" class="type-h2 font-bold text-on-surface">
+          Planes flexibles sin comisiones abusivas
+        </h2>
+        <p class="mt-3 text-base sm:text-lg text-on-surface-variant leading-relaxed">
+          Empieza gratis, escala cuando lo necesites. Sin contratos de
+          permanencia forzada ni cobros ocultos por volumen.
+        </p>
       </div>
-      <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-on-surface tracking-tight leading-tight sm:leading-snug">
-        Planes flexibles sin comisiones abusivas
-      </h2>
-      <p class="text-sm sm:text-base md:text-lg text-on-surface-variant leading-relaxed">
-        Empieza gratis, escala cuando lo necesites. Sin contratos de
-        permanencia forzada.
-      </p>
+
+      {/* Segmented Billing Control */}
+      <div class="w-full sm:w-auto flex sm:justify-end">
+        <div
+          id="pricing-tabs"
+          class="eloq-tabs w-full sm:w-auto"
+          role="tablist"
+          aria-label="Frecuencia de facturación"
+        >
+          <span class="eloq-tabs-pill" aria-hidden="true"></span>
+          <button
+            type="button"
+            class="eloq-tab flex-1 sm:flex-initial"
+            role="tab"
+            aria-selected="true"
+            data-billing="monthly"
+          >
+            Pago Mensual
+          </button>
+          <button
+            type="button"
+            class="eloq-tab flex-1 sm:flex-initial"
+            role="tab"
+            aria-selected="false"
+            data-billing="annual"
+          >
+            <span>Pago Anual</span>
+            <span class="font-mono text-[11px] font-bold px-2 py-0.5 rounded-full bg-primary text-on-primary tabular-nums">
+              -20%
+            </span>
+          </button>
+        </div>
+      </div>
     </div>
 
-    {/* Pricing Grid */}
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 max-w-[30rem] lg:max-w-none mx-auto items-stretch">
+    {/* Eloqwnt Architectural Specification Matrix (Unified 1px Hairline Border Table) */}
+    <div class="rounded-2xl border border-outline-variant/65 overflow-hidden grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-outline-variant/65 shadow-level-1">
       {PLANS.map((plan) => (
         <div
-          class={`bg-surface-container-lowest rounded-3xl p-6 sm:p-8 flex flex-col justify-between gap-6 transition-all duration-200 relative hover:-translate-y-1 ${
+          data-pricing-col
+          class={`p-6 sm:p-8 lg:p-9 flex flex-col justify-between gap-8 ${
             plan.featured
-              ? 'border-2 border-primary-container shadow-[0_8px_30px_rgba(16,185,129,0.15)]'
-              : 'border border-border-subtle shadow-level-1 hover:shadow-level-2'
+              ? 'bg-inverse-surface text-inverse-on-surface'
+              : 'bg-surface-container-lowest text-on-surface'
           }`}
         >
-          {plan.featured && (
-            <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-secondary-container text-on-secondary text-[11px] font-extrabold uppercase tracking-wider py-1 px-3.5 rounded-full shadow-[0_2px_8px_rgba(254,106,52,0.3)]">
-              Más Popular
-            </div>
-          )}
-
-          <div class="flex flex-col gap-1.5">
-            <h3 class="text-xl sm:text-2xl font-bold text-on-surface">
-              {plan.name}
-            </h3>
-            <p class="text-xs sm:text-sm text-on-surface-variant min-h-[2.25rem]">
-              {plan.description}
-            </p>
-            <div class="flex items-baseline gap-1 my-3 sm:my-4">
-              <span class="text-3xl sm:text-4xl font-extrabold text-on-surface leading-none">
-                {plan.price}
-              </span>
-              {plan.period && (
-                <span class="text-xs sm:text-sm text-on-surface-variant">
-                  {plan.period}
+          <div class="flex flex-col gap-5">
+            <div class="flex flex-wrap items-center justify-between gap-2.5">
+              <h3 class="text-2xl font-bold tracking-tight">{plan.name}</h3>
+              {plan.featured && (
+                <span class="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-secondary-container text-on-secondary">
+                  Más elegido por restaurantes
                 </span>
               )}
             </div>
-          </div>
 
-          <div class="flex flex-col gap-3 border-t border-surface-container pt-4 grow mb-2">
-            {plan.features.map((feat) => (
-              <div class="flex items-start gap-2.5 text-xs sm:text-sm text-on-surface">
-                <span class="text-primary-container flex shrink-0 mt-0.5">
-                  <Icon name="check_circle" size={18} fill={true} />
-                </span>
-                <span>{feat}</span>
+            <p
+              class={`text-sm leading-relaxed lg:min-h-[2.75rem] ${
+                plan.featured ? 'text-[#c7dcd0]' : 'text-on-surface-variant'
+              }`}
+            >
+              {plan.description}
+            </p>
+
+            {/* Price Display with GSAP-synchronized Digit Reel */}
+            <div class="pt-2">
+              <div class="flex items-baseline gap-1.5 tabular-nums">
+                {plan.isNumeric ? (
+                  <div class="inline-flex items-baseline text-5xl font-bold leading-none">
+                    <span>$</span>
+                    <div
+                      class="eloq-reel"
+                      data-price-reel
+                      data-monthly={plan.monthlyPrice}
+                      data-annual={plan.annualPrice}
+                      aria-label={`$${plan.monthlyPrice}`}
+                    >
+                      {plan.monthlyPrice.split('').map(() => (
+                        <span class="eloq-reel-col">
+                          <span class="eloq-reel-strip">
+                            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => (
+                              <span class="eloq-reel-digit">{n}</span>
+                            ))}
+                          </span>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <span class="text-5xl font-bold leading-none tracking-tight">
+                    {plan.monthlyPrice}
+                  </span>
+                )}
+                {plan.period && (
+                  <span
+                    class={`text-sm font-medium ${
+                      plan.featured ? 'text-[#b4c8bc]' : 'text-on-surface-variant'
+                    }`}
+                  >
+                    {plan.period}
+                  </span>
+                )}
               </div>
-            ))}
+
+              <p
+                class={`mt-2.5 text-xs font-semibold min-h-[1.25rem] tabular-nums ${
+                  plan.featured ? 'text-primary-fixed' : 'text-primary'
+                }`}
+                data-billing-note
+                data-monthly-note={plan.monthlyNote}
+                data-annual-note={plan.annualNote}
+              >
+                {plan.monthlyNote}
+              </p>
+            </div>
+
+            {/* Features Hairline List */}
+            <ul
+              class={`flex flex-col gap-3 pt-6 border-t ${
+                plan.featured ? 'border-white/12' : 'border-outline-variant/50'
+              }`}
+            >
+              {plan.features.map((feat) => (
+                <li class="flex items-start gap-2.5 text-sm font-medium">
+                  <Icon
+                    name="check_circle"
+                    size={18}
+                    class={`mt-0.5 ${plan.featured ? 'text-primary-fixed' : 'text-primary'}`}
+                  />
+                  <span>{feat}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <Button
-            variant={plan.buttonVariant}
-            size="md"
-            fullWidth
-            href="#comienza-gratis"
+          <a
+            href="/#comienza-gratis"
+            class={`eloq-btn w-full min-h-[48px] px-6 py-3 text-sm font-bold ${
+              plan.featured
+                ? 'bg-secondary-container text-on-secondary shadow-cta'
+                : 'border border-outline-variant text-on-surface hover:text-white'
+            }`}
           >
-            {plan.buttonText}
-          </Button>
+            <span
+              class={`eloq-btn-curtain ${plan.featured ? 'bg-primary' : 'bg-inverse-surface'}`}
+            ></span>
+            <span>{plan.buttonText}</span>
+            <span class="eloq-btn-arrows" aria-hidden="true">
+              <Icon name="arrow_right" size={16} />
+              <Icon name="arrow_right" size={16} />
+            </span>
+          </a>
         </div>
       ))}
     </div>
+
+    {/* Eloqwnt Split-Screen FAQ Layout (.grid-faq) */}
+    <div class="mt-20 sm:mt-24 pt-16 border-t border-outline-variant/55 grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-10 lg:gap-16 items-start">
+      <div class="lg:sticky lg:top-28">
+        <h3 class="type-h2 font-bold text-on-surface">
+          Preguntas frecuentes sobre costos e implementación
+        </h3>
+      </div>
+
+      <div class="flex flex-col divide-y divide-outline-variant/60 border-b border-outline-variant/60">
+        {FAQS.map((faq, idx) => (
+          <div
+            class="py-1"
+            data-faq-item
+            data-open={idx === 0 ? 'true' : 'false'}
+          >
+            <button
+              type="button"
+              class="w-full min-h-[56px] py-5 flex items-center justify-between gap-4 text-left text-base sm:text-lg font-bold text-on-surface hover:text-primary transition-colors cursor-pointer"
+              aria-expanded={idx === 0 ? 'true' : 'false'}
+            >
+              <span>{faq.q}</span>
+              <span class="relative w-5 h-5 shrink-0 text-primary flex items-center justify-center" aria-hidden="true">
+                <span class="block w-4 h-0.5 bg-current rounded-full"></span>
+                <span class="faq-vbar block w-0.5 h-4 bg-current rounded-full absolute transition-transform duration-300"></span>
+              </span>
+            </button>
+            <div class="eloq-acc-panel">
+              <div class="eloq-acc-inner">
+                <p class="pb-6 text-sm sm:text-base text-on-surface-variant leading-relaxed max-w-[65ch]">
+                  {faq.a}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   </Container>
-</SectionWrapper>
+</section>
+
+<style>
+  [data-faq-item][data-open="true"] .faq-vbar {
+    transform: rotate(90deg) scaleY(0);
+  }
+</style>
+
+<script>
+  import { ensureGsapRegistered } from '../scripts/gsap-setup';
+
+  function initPricingSection() {
+    const { gsap, ScrollTrigger } = ensureGsapRegistered();
+
+    const bar = document.getElementById('pricing-tabs');
+    const pill = bar?.querySelector<HTMLElement>('.eloq-tabs-pill');
+    const tabs = bar ? Array.from(bar.querySelectorAll<HTMLElement>('.eloq-tab')) : [];
+    const reels = document.querySelectorAll<HTMLElement>('[data-price-reel]');
+    const notes = document.querySelectorAll<HTMLElement>('[data-billing-note]');
+
+    function updatePriceReels(mode: 'monthly' | 'annual', animate: boolean) {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      reels.forEach((reel) => {
+        const targetStr = mode === 'annual' ? reel.dataset.annual || '0' : reel.dataset.monthly || '0';
+        reel.setAttribute('aria-label', `$${targetStr}`);
+        const cols = reel.querySelectorAll<HTMLElement>('.eloq-reel-col');
+        const digits = targetStr.split('');
+
+        cols.forEach((col, i) => {
+          const strip = col.querySelector<HTMLElement>('.eloq-reel-strip');
+          const digitVal = parseInt(digits[i] || '0', 10);
+          if (!strip) return;
+
+          if (!animate || reduceMotion) {
+            gsap.set(strip, { y: 0, yPercent: -(digitVal * 10) });
+          } else {
+            gsap.to(strip, {
+              y: 0,
+              yPercent: -(digitVal * 10),
+              duration: 0.75,
+              delay: i * 0.06,
+              ease: 'power3.out',
+            });
+          }
+        });
+      });
+
+      notes.forEach((note) => {
+        note.textContent =
+          mode === 'annual'
+            ? note.dataset.annualNote || ''
+            : note.dataset.monthlyNote || '';
+      });
+    }
+
+    const tabListeners: Array<{ el: HTMLElement; fn: () => void }> = [];
+    let ro: ResizeObserver | undefined;
+
+    if (bar && pill && tabs.length) {
+      const moveTo = (tab: HTMLElement, animate: boolean) => {
+        if (!animate) {
+          const prev = pill.style.transition;
+          pill.style.transition = 'none';
+          pill.style.transform = `translateX(${tab.offsetLeft}px)`;
+          pill.style.width = `${tab.offsetWidth}px`;
+          void pill.offsetWidth;
+          pill.style.transition = prev;
+        } else {
+          pill.style.transform = `translateX(${tab.offsetLeft}px)`;
+          pill.style.width = `${tab.offsetWidth}px`;
+        }
+      };
+
+      const activeTab = () =>
+        tabs.find((t) => t.getAttribute('aria-selected') === 'true') || tabs[0];
+
+      tabs.forEach((tab) => {
+        const fn = () => {
+          tabs.forEach((t) => t.setAttribute('aria-selected', t === tab ? 'true' : 'false'));
+          moveTo(tab, true);
+          const billing = (tab.dataset.billing as 'monthly' | 'annual') || 'monthly';
+          updatePriceReels(billing, true);
+        };
+        tab.addEventListener('click', fn);
+        tabListeners.push({ el: tab, fn });
+      });
+
+      updatePriceReels('monthly', false);
+      requestAnimationFrame(() => {
+        moveTo(activeTab(), false);
+      });
+
+      ro = new ResizeObserver(() => moveTo(activeTab(), false));
+      ro.observe(bar);
+    }
+
+    // FAQ Toggle
+    const faqItems = document.querySelectorAll<HTMLElement>('[data-faq-item]');
+    const faqListeners: Array<{ btn: HTMLButtonElement; fn: () => void }> = [];
+
+    faqItems.forEach((item) => {
+      const btn = item.querySelector<HTMLButtonElement>('button');
+      if (!btn) return;
+      const fn = () => {
+        const isOpen = item.getAttribute('data-open') === 'true';
+        item.setAttribute('data-open', String(!isOpen));
+        btn.setAttribute('aria-expanded', String(!isOpen));
+        window.setTimeout(() => ScrollTrigger.refresh(), 380);
+      };
+      btn.addEventListener('click', fn);
+      faqListeners.push({ btn, fn });
+    });
+
+    const mm = gsap.matchMedia();
+    mm.add(
+      { canAnimate: '(prefers-reduced-motion: no-preference)' },
+      (context) => {
+        if (!context.conditions?.canAnimate) return;
+        ScrollTrigger.batch('[data-pricing-col]', {
+          start: 'top 92%',
+          once: true,
+          onEnter: (batch) => {
+            gsap.fromTo(
+              batch,
+              { y: 18 },
+              {
+                y: 0,
+                duration: 0.6,
+                stagger: 0.08,
+                ease: 'power3.out',
+                clearProps: 'transform',
+              }
+            );
+          },
+        });
+      }
+    );
+
+    return () => {
+      mm.revert();
+      ro?.disconnect();
+      tabListeners.forEach(({ el, fn }) => el.removeEventListener('click', fn));
+      faqListeners.forEach(({ btn, fn }) => btn.removeEventListener('click', fn));
+    };
+  }
+
+  let cleanupPricing: (() => void) | undefined;
+  const mount = () => {
+    cleanupPricing?.();
+    cleanupPricing = initPricingSection();
+  };
+  mount();
+  document.addEventListener('astro:page-load', mount);
+</script>
